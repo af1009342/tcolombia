@@ -10,9 +10,9 @@ router.get('/', (req, res, next) => {
 //lo mas probables es que se por el tema del caracter * que va al final de cada dirección /signup* 
 // toca hacer un debugger
 
-router.get('/signup', role_allow);
+//router.get('/signup', role_allow);
 
-router.get('/signup',  isAuthenticated, (req, res, next) => {
+router.get('/signup',  (req, res, next) => {
   res.render('signup');
 });
 
