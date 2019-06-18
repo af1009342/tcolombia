@@ -12,7 +12,9 @@ router.get('/', (req, res, next) => {
 
 //router.get('/signup', role_allow);
 
-router.get('/signup',  (req, res, next) => {
+router.get('/signup', role_allow);
+
+router.get('/signup', role_allow, (req, res, next) => {
   res.render('signup');
 });
 
@@ -185,7 +187,7 @@ function role_allow(req, res, next) {
   const admin = [
     {route: '/profile', allow: true},
     {route: '/signup', allow: true},
-    {route: '/oper', allow: false},    
+    {route: '/oper', allow: true},    
     {route: '/coord', allow: true},
     {route: '/logout', allow: true},
     {route: '/motor', allow: false}
@@ -218,48 +220,79 @@ function role_allow(req, res, next) {
           {route: '/motor', allow: true}
           ];
 
-  if(req.user.role==='admin'){
-     const resultado = admin.find( rout => rout.route === req.path );
-     console.log(resultado.allow);
-    if(resultado.allow){
-      return next();
+  tmp_allow = new Boolean(false);
+
+  if(req.user.role==='admin'){        
+    var str = req.path;
+    var n = str.indexOf("/", 1);
+    if(n>0){
+      var res_cut = str.substring(0, n);
     }else{
-      res.redirect('/');
-      
-    }
+      var res_cut = str;
+    }  
+    const resultado = admin.find( rout => rout.route === res_cut );
+     if (typeof resultado === "undefined" || resultado.allow === false){
+      console.log('the page is not available...'); // print into console
+      tmp_allow = new Boolean(false);
+        res.redirect('/');
+      }else{
+        return next();
+      }
   }
   
   if(req.user.role==='coord'){
-    const resultado = coord.find( rout => rout.route === req.path );
-    console.log(resultado.allow);
-   if(resultado.allow){
-     return next();
-   }else{
-     res.redirect('/');
-     
-   }
+    var str = req.path;
+    var n = str.indexOf("/", 1);
+    if(n>0){
+      var res_cut = str.substring(0, n);
+    }else{
+      var res_cut = str;
+    }  
+    const resultado = coord.find( rout => rout.route === res_cut );
+     if (typeof resultado === "undefined" || resultado.allow === false){
+      console.log('the page is not available...'); // print into console
+      tmp_allow = new Boolean(false);
+        res.redirect('/');
+      }else{
+        return next();
+      }
  }
 
  if(req.user.role==='oper'){
-  const resultado = oper.find( rout => rout.route === req.path );
-  console.log(resultado.allow);
- if(resultado.allow){
-   return next();
- }else{
-   res.redirect('/');
-   
- }
+  var str = req.path;
+  var n = str.indexOf("/", 1);
+  if(n>0){
+    var res_cut = str.substring(0, n);
+  }else{
+    var res_cut = str;
+  }  
+    
+    const resultado = oper.find( rout => rout.route === res_cut );  
+     if (typeof resultado === "undefined" || resultado.allow === false){
+      console.log('the page is not available...'); // print into console
+      tmp_allow = new Boolean(false);
+        res.redirect('/');
+      }else{
+        return next();
+      }
 }
 
 if(req.user.role==='motor'){
-  const resultado = motor.find( rout => rout.route === req.path );
-  console.log(resultado.allow);
- if(resultado.allow){
-   return next();
- }else{
-   res.redirect('/');
-   
- }
+  var str = req.path;
+  var n = str.indexOf("/", 1);
+  if(n>0){
+    var res_cut = str.substring(0, n);
+  }else{
+    var res_cut = str;
+  }  
+  const resultado = motor.find( rout => rout.route === res_cut );
+     if (typeof resultado === "undefined" || resultado.allow === false){
+      console.log('the page is not available...'); // print into console
+      tmp_allow = new Boolean(false);
+        res.redirect('/');
+      }else{
+        return next();
+      }
 }
  
 }

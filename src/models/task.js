@@ -6,7 +6,9 @@ const taskSchema = new Schema({
   coord:String,
   pasajero: String,
   direccion: String,
-  estado: String,
+  estado: {
+    type: String,
+    default: "En espera"},
   notifico: String,
   asignado: String,
   test :{

@@ -55,12 +55,15 @@ const server = app.listen(app.get('port'), () => {
 const io = socket(server);
 
 io.on('connection', (socket) => {
-  console.log('socket connection opened:', socket.id);  
+  console.log('socket connection opened:', socket.id);
+  
+
+  
   socket.on('chat:message', function(data) {
     io.sockets.emit('chat:message', data);
     console.log('chat:message');
     console.log(data);
-});
+     });
 
 socket.on('chat:typing', function(data) {
   socket.broadcast.emit('chat:typing', data);
@@ -89,6 +92,10 @@ socket.on('oper:motor', function(data) {
 socket.on('motor:oper', function(data) {
   socket.broadcast.emit('motor:oper', data);  
   console.log(data);
+});
+
+socket.on('disconnect', function() {
+  console.log('Got disconnect!', socket.id);
 });
 
 });

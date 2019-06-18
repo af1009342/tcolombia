@@ -1,0 +1,221 @@
+<fieldset>
+  <div class="panel-group">
+    <div class="panel panel-info">
+      <div class="panel-heading">1. Datos Contrato</div>
+      <div class="panel-body">
+        <div class="form-row">
+        <label class="control-label">Coordinador:</label>
+        <input type="text" name="coord" value="af1009342@gmail.com" class="form-control" >
+        </div>       
+ 
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Cod/registro:</label>
+            <input id="id_reg_mas" name="id_reg_mas" placeholder="Cod_Registro" class="form-control" type="text"
+              readonly>
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-sm-7">Contrato/Ficha:</label>
+            <div class="select-editable">
+              <select id="contrato" name="contrato" required="required" class="form-control select-md">
+                <option selected>CT-XXXX.../00X</option>
+                <option value="CT-0754-001">CT-0754-001</option>
+                <option value="CT-0754-002">CT-0754-002</option>
+                <option value="CT-0754-003">CT-0754-003</option>
+              </select>
+            </div>
+            <div class="col-sm-5 messages"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">2. Datos Pasajero</div>
+      <div class="panel-body">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label class="control-label">Documento:</label>
+            <input id="nit_cc" name="nit_cc" placeholder="Del Pasajero" class="form-control" type="number">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="pasajero">Nombre Pasajero:</label>
+            <input id="pasajero" name="pasajero" placeholder="Completo" class="form-control" type="text">
+            <div class="col-sm-5 messages"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="email" class="control-label">Email:</label>
+            <input id="email" name="email" placeholder="Correo Electrónico" class="form-control" type="email">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="tel_cel" class="control-label">Celular:</label>
+            <input id="tel_cel" name="tel_cel" placeholder="3XX XXX XXXX" class="form-control" type="tel">
+            <div class="col-sm-5 messages"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">3. Tipo de Recorrido</div>
+      <div class="panel-body">
+        <div class="form-row">
+            <input type='text' class="form-control" id="tipo_trayecto2" name="tipo_trayecto2"
+            placeholder="DD/MM/AAAA H:M:S" value="testido" style="display:none" />
+          <div class="form-group col-md-4">
+            <div class="form-check form-check-inline col-md-4">
+              <label class="form-check-label" for="tipo_trayecto">Solo Ida</label>
+              <input class="form-check-input" type="radio" name="tipo_trayecto" id="solo_ida" value="solo_ida">
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <div class="form-check form-check-inline col-md-4">
+              <label class="form-check-label" for="tipo_trayecto">Ida y Regreso</label>
+              <input class="form-check-input" type="radio" name="tipo_trayecto" id="ida_regreso" value="ida_regreso">
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <div class="form-check form-check-inline col-md-4">
+              <label class="form-check-label" for="tipo_trayecto">Recorrido Libre</label>
+              <input class="form-check-input" type="radio" name="tipo_trayecto" id="libre" value="libre">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">4. DATOS PARTIDA</div>
+      <div class="panel-body">
+        <center>
+          <h4>Datos Origen-¿Donde lo recogemos?</h4>
+        </center>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label class="control-label" for="tiempo_partida">Hora y fecha recogida</label>
+            <div class='input-group date'>
+              <input type='text' class="form-control" id="tiempo_partida" name="tiempo_partida"
+                placeholder="DD/MM/AAAA H:M:S" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+              <div class="col-sm-5 messages"></div>
+            </div>
+          </div>          
+          <div class="form-group col-md-3">
+            <label for="ida_dire" class="control-label">Dirección 1 recogida:.</label>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Calle 55 #55-555">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="ida_dire2" class="control-label">Complemento Dirección 2</label>
+            <input type="text" class="form-control" id="ida_dire2" name="ida_dire2"
+              placeholder="Apartamento, Estudio, Piso x, Oficina 555, etc">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="depar_ciu_ida">Departamento - Municipio recogida</label>
+            <select id="depar_ciu_ida" name="depar_ciu_ida" required="required" class="form-control select-md">
+              <% include _depar_muni %>
+            </select>
+            <div class="col-sm-5 messages"></div>
+          </div>
+
+        </div>
+        <center>
+          <h4>Datos Destino y -¿A Donde te llevamos?</h4>
+        </center>
+        <div id="libre_btn" name="libre_btn">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="des_i_dire">Dirección 1 Destino</label>
+              <input type="text" class="form-control" id="des_i_dire" name="des_i_dire" placeholder="Calle 55 #55-555">
+              <div class="col-sm-5 messages"></div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="des_i_dire2">Dirección 2 Destino Complementarios</label>
+              <input type="text" class="form-control" id="des_i_dire2" name="des_i_dire2"
+                placeholder="Apartmento, Estudio, Piso x, Oficina 555, etc">
+              <div class="col-sm-5 messages"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="depar_ciu_des_i">Departamento - Municipio Destino</label>
+              <select id="depar_ciu_des_i" name="depar_ciu_des_i" required="required" class="form-control select-md">
+                <% include _depar_muni %>
+              </select>
+              <div class="col-sm-5 messages"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="regreso" name="regreso" class="panel panel-success">     
+      <div class="panel-heading">5. DATOS REGRESO</div>
+      <div class="panel-body">
+        <center>
+          <h4>Datos Origen-¿Donde lo recogemos?</h4>
+        </center>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label class="control-label" for="tiempo_recogida">Hora y fecha recogida</label>
+            <div class='input-group date'>
+              <input type='text' class="form-control" id="tiempo_recogida" name="tiempo_recogida"
+                placeholder="DD/MM/AAAA H:M:S" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="reg_dire" class="control-label">Dirección 1 recogida</label>
+            <input type="text" class="form-control" name="reg_dire" id="reg_dire" placeholder="Calle 55 #55-555">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="reg_dire2" class="control-label">Dirección 2 recogida</label>
+            <input type="text" class="form-control" id="reg_dire2" name="reg_dire2"
+              placeholder="Apartmento, Estudio, Piso x, Oficina 555, etc">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="depar_ciu_reg" class="control-label">Departamento - Municipio recogida</label>
+            <select id="depar_ciu_reg" name="depar_ciu_reg" required="required" class="form-control select-md">
+              <% include _depar_muni %>
+            </select>
+            <div class="col-sm-5 messages"></div>
+          </div>
+        </div>
+        <center>
+          <h4>Datos Destino - ¿Donde te llevamos?</h4>
+        </center>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="des_reg_dire" class="control-label">Dirección 1 Destino</label>
+            <input type="text" class="form-control" id="des_reg_dire" name="des_reg_dire"
+              placeholder="Calle 55 #55-555">
+            <div class="col-sm-5 messages"></div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="des_reg_dire2" class="control-label">Dirección 2 Destino Complementarios</label>
+            <input type="text" class="form-control" id="des_reg_dire2" name="des_reg_dire2"
+              placeholder="Apartmento, Estudio, Piso x, Oficina 555, etc">
+            <div class="col-sm-5 messages"></div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="depar_ciu_reg_r" class="control-label">Departamento - Municipio Destino</label>
+          <select id="depar_ciu_reg_r" name="depar_ciu_reg_r" required="required" class="form-control select-md">
+            <% include _depar_muni %>
+          </select>
+          <div class="col-sm-5 messages"></div>
+        </div>        
+      </div>
+    </div>
+</fieldset>
+<!-- varibles contrato y datos pasaero: id_reg_mas contrato nit_cc Clie email tel_cel tipo_trayecto-->
+<!--fech_hor_ida ida_dire ida_dire2 depar_ciu_ida des_i_dire des_i_dire2 depar_ciu_des_i-->
+<!--fech_hor_reg reg_dire reg_dire2 depar_ciu_reg des_reg_dire des_reg_dire2 depar_ciu_reg_r-->
