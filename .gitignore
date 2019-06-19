@@ -1,4 +1,8 @@
 node_modules/
+node_modules/
 tmp.drivedownload/
 vscode/
 node_modules/
+node_modules (1)/
+.tmp.drivedownload/
+.vscode/
