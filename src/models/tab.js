@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 //esquema de fichas de Contratos
 
-
 const tabSchema = new Schema({
-  tab: String,
+  tab:{
+    type:String,
+    index:true
+  },
   Dependencia: String,
   valor_ficha: Number ,
   valor_ficha_ejecutado: Number ,
@@ -14,5 +16,5 @@ const tabSchema = new Schema({
 }
 });
 
-
+tabSchema.index({tab: 'text'});
 module.exports = mongoose.model('tab', tabSchema);

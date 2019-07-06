@@ -4,6 +4,7 @@ const Task = require('../models/task');
 const Client = require('../models/client');
 const Contract = require('../models/contract');
 const Ficha = require('../models/tab');
+const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -22,11 +23,6 @@ router.post('/signup', passport.authenticate('local-signup', {
   failureRedirect: '/signup',
   failureFlash: true
 })); 
-
-
-
-
-
 
 
 router.get('/signin', (req, res, next) => {
@@ -77,6 +73,64 @@ router.post('/coord/add', async (req, res, next) => {
 });
 
 //admin rutas
+
+/* router.post('/admin/signup', passport.authenticate('local-signup-asign', {  
+  successRedirect: '/admin/signup',
+  failureRedirect: '/admin/signup',
+  failureFlash: true
+}));  */
+
+router.post('/admin/signup', async (req, res, next) => {  
+  const newUser = new User(req.body);
+  console.log("---------------newUser----------------");
+  console.log(newUser);
+  const user = await User.findOne({'email': newUser.email});
+  console.log("user-------------------");
+  console.log(user);
+  const updateContract = await Contract.findOne({'Codcontract': req.body.codcontract_user});       
+  if(updateContract){
+  console.log("if updateContract exist then---------");
+  console.log(updateContract);
+    if(user) {
+      console.log("if user exist then--------------------");    
+      const already_link = await Contract.findOne({'Codcontract': newUser.codcontract_user},{ coordinadores: user._id});  
+      if(already_link){
+        console.log("ya lo habian vinculado----------");    
+        req.flash('signupMessage', 'The Email '+newUser.email+' was already linked with the Contract.'+req.body.codcontract_user);     
+        res.status(200).send({message:"oksss"});
+      }else{
+        console.log("acaba de ser vinculado--------");    
+        updateContract.coordinadores.push(user);    
+      await updateContract.save();
+      req.flash('signupMessage', 'The User with the email  '+newUser.email+' has linked with the Contract.'+req.body.codcontract_user);
+      res.status(200).send({message:"oksss"});
+            }    
+    } else {
+      console.log("el usuario o su correo no existe, primero se crea")
+      const newUser = new User();
+      newUser.email = req.body.email;
+      newUser.role = req.body.role;
+      newUser.password = newUser.encryptPassword(req.body.password);    
+    console.log(newUser)
+      await newUser.save();    
+      updateContract.coordinadores.push(newUser);    
+      await updateContract.save();
+      
+      req.flash('signupMessage', 'The Email  '+newUser.email+' was created and linked with the Contract.'+req.body.codcontract_user);
+      res.status(200).send({message:"oksss"});
+    }
+   
+  }else{
+    req.flash('signupMessage', 'Error, we couln´t find the contract: '+req.body.codcontract_user+'');
+    res.status(200).send({message:"oksss"});
+  }
+
+
+});
+
+
+
+
 router.post('/admin/client/add', async (req, res, next) => {  
   const newClient = new Client(req.body);
   const client = await newClient.save(); 
@@ -85,23 +139,97 @@ router.post('/admin/client/add', async (req, res, next) => {
 });
 
 router.post('/admin/contract/add', async (req, res, next) => {
-  console.log(req.body);
-  const newContract = new Contract(req.body);
-  const contract = await newContract.save(); 
+ //console.log(req.body);
+  const updateContract = await Contract.findOne({'Codcontract': req.body.Codcontract});
+  if(!updateContract){
+    console.log("contrato no existe, procedemos-------------------");
+    //--------------------
+    const newUser = new User(req.body);    
+    console.log("newUser");
+    console.log(newUser);
+    const user = await User.findOne({'email': newUser.email});
+    const newFicha = new Ficha(req.body);
+    newFicha.contract = req.body._id;
+    const ficha = await newFicha.save();
+    const newContract = new Contract(req.body);
 
-  const newClient = new Client(req.body);
-  newClient.contract = contract._id;
-  const client = await newClient.save();  
+    if(user) {
+      console.log("if user exist then--------------------");    
+      const already_link = await Contract.findOne({'Codcontract': req.body.Codcontract},{ coordinadores: user._id});  
+      if(already_link){
+        console.log("ya lo habian vinculado----------");    
+        req.flash('signupMessage', 'The Email '+newUser.email+' was already linked with the Contract.'+req.body.Codcontract);     
+        res.status(200).send({contract_id: already_link._id});
+      }else{
+        console.log("acaba de ser vinculado--------");    
+        newContract.coordinadores.push(user);    
+      //await updateContract.save();
+      req.flash('signupMessage', 'The User with the email  '+newUser.email+' has linked with the Contract.'+req.body.Codcontract);
+      //res.status(200).send({message:"oksss"});
+            }    
+    } else {
+      console.log("el usuario o su correo no existe, primero se crea");
+      newUser.password = newUser.encryptPassword(req.body.password);    
+      console.log(newUser);
+      await newUser.save();    
+      newContract.coordinadores.push(newUser);    
+      //await updateContract.save();        
+      req.flash('signupMessage', 'The Email  '+newUser.email+' was created and linked with the Contract.'+req.body.Codcontract);
+      //res.status(200).send({message:"oksss"});
+    }       
+    //--------------------
+    
 
-  const newFicha = new Ficha(req.body);
-  newFicha.contract = contract._id;
-  const ficha = await newFicha.save();
+    newContract.nit_cc = req.body.nit_cc_client;    
+    newContract.ficha.push(ficha);
+    console.log("ficha");
+    console.log(ficha);
+    const contract = await newContract.save();
+    console.log("contract");
+    console.log(contract);
+      const client = await Client.findOne({'nit_cc_client': req.body.nit_cc_client});
+
+      if(!client){
+        console.log("cliente con nit "+ req.body.nit_cc_client +" no existe se salva y se vincula al contrato");
+        const newClient = new Client(req.body);
+        newClient.contract = contract._id;
+        await newClient.save();
+        console.log(newClient);
+        await Contract.findByIdAndUpdate(contract._id, {$set:{cliente: newClient._id}});        
+        console.log("updateContract");      
+      }else{
+        console.log("cliente ya existia entonces solo se vincula al contrato");
+        client.contract = contract._id;
+        const newClient = await client.save();
+        console.log(newClient);
+        await Contract.findByIdAndUpdate(contract._id, {$set:{cliente: newClient._id}});        
+        console.log("updateContract");      
+      }
+     
+      
+    res.status(200).json({contract_id: contract._id});
+  }else{
+    console.log("Error, we couln´t create the contract: "+req.body.Codcontract+" because already exist-------------------");
+    req.flash('signupMessage', 'Error, we couln´t create the contract: '+req.body.Codcontract+' because already exist');
+    res.status(200).send({contract_id: updateContract._id});
+  }
+/*  
+
+ 
+        const updateFicha = await Ficha.findOne({'tab': req.body.tab},{'Dependencia': req.body.Dependencia});
+        console.log("updateFicha");
+        console.log(updateFicha);
+  
+ 
+  
   
   newContract.cliente = client;
-  newContract.ficha.push(ficha);
-  await newContract.save();
+  
+  
 
-  res.status(200).json({newContract});   
+  res.status(200).json({newContract}); */
+  
+     
 });
 
 router.post('/admin/:contractId/ficha/add', async (req, res, next) => {
@@ -122,14 +250,30 @@ router.put('/admin/:contractId/:fichaId/remove', async (req, res, next) => {
   res.status(200).json({success: true});   
 });
 
+router.get('/data/admin/contract/:codcontract_user/', async (req, res, next) => {
+  const { codcontract_user } = req.params;
+  const selcontract = await Contract.find({$text: {$search: codcontract_user , 
+    "$caseSensitive": false, 
+    "$diacriticSensitive": false}}).populate('cliente');
+  console.log(selcontract);
+  res.status(200).json({selcontract});
+});
+
+router.get('/data/admin/client/:nit_cc_client_val/', async (req, res, next) => {
+  const { nit_cc_client_val } = req.params;
+  const nit_cc_client = await Client.find({$text: {$search: nit_cc_client_val , 
+    "$caseSensitive": false, 
+    "$diacriticSensitive": false}});
+  console.log(nit_cc_client);  
+  res.status(200).json({nit_cc_client});
+});
 
 router.get('/data/contract/:contractId/', async (req, res, next) => {
   const { contractId } = req.params;  
-  const {ficha} = await Contract.findById(contractId).populate('ficha').populate('cliente');
+  const ficha = await Contract.findById(contractId).populate('ficha').populate('cliente');
   console.log(ficha);
   res.status(200).json({ficha});   
 });
-
 
 //admin rutas fin
 

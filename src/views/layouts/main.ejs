@@ -91,7 +91,13 @@
       display: block;
       width: 100%;
     }
-
+    ul{  
+                background-color:#eee;  
+                cursor:pointer;  
+           }  
+           li{  
+                padding:5px;  
+           }  
     /*
  button {
    background: #575ed8;
@@ -294,6 +300,15 @@
       <p><%= signupMessage %></p>
     </div>
     <% } %>
+    <%if (infoMessage.length >0 ) {%>
+      <div class="alert alert-success" role="alert">
+        <p><%= infoMessage %></p>
+      </div>
+    <% } %>
+  
+
+    
+
 
     <%- body %>
   </div>

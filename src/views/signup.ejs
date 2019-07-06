@@ -20,10 +20,11 @@
                 <input type="text" id="email_mod" name="email_mod" placeholder="email del Coordinador" class="form-control" disabled>
               </div>
               <div class="form-group">
-                <input type="text" id="codcontract" name="codcontract" placeholder="Código del Contrato" class="form-control">
+                <input type="text" id="codcontract" name="codcontract" placeholder="Código del Contrato" class="form-control" disabled>
+                <input type="text" id="codcontract_id" name="codcontract_id" placeholder="Código del Contrato" class="form-control" disabled>
               </div>
-              <div class="form-group">
-                <input type="number" id="valor" name="valor" placeholder="valor contrato" class="form-control">
+              <div class="form-group"> 
+                <input type="text" id="valor_mod" name="valor_mod" placeholder="valor contrato" class="form-control" pattern="[0-9]*">
               </div>
               <h4 class="text-center">Datos Cliente</h4> 
               <div class="form-group">
@@ -91,26 +92,45 @@
           </div>
           <div class="col-md-4 text-center ">
               <div class="form-group">
-                <input type="text" name="valor_ficha" placeholder="Valor para la Ficha" class="form-control">
+                <input type="text" id="valor_ficha_mod" name="valor_ficha_mod" placeholder="Valor para la Ficha" class="form-control" pattern="[0-9]*">
               </div>
             </div> 
-      </div>
-    
-             
+      </div>  
           </div>
-          <button type="submit" class="btn btn-primary mt-4 btn-block">
+          <button id="button_table"> llenar tabla</button>
+          <div class="row">        
+              <div class="col-md-12">
+                  <table
+                  id="table_tabs"
+                  data-toggle="table_tabs"                 
+                  data-minimum-count-columns="2"
+                  data-id-field="id"
+                  data-response-handler="responseHandler"        
+                  class="table table-bordered table-hover">
+               <thead>    
+                <tr>
+                  <th data-field="_id">Operaciones</th>
+                  <th data-field="tab">Nombre Ficha</th>
+                  <th data-field="Dependencia">Dependencia</th>          
+                  <th data-field="valor_ficha">valor ficha</th>
+                  <th data-field="valor_ficha_ejecutado">Valor Ejecutado</th>
+                  <th data-field="contract" hidden>Valor Ejecutado</th>        
+                </tr>
+              </thead>
+            </table>
+          </div>        
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+          <button id="main_crea_contr" type="submit" class="btn btn-primary mt-4 btn-block">
               Crear Contrato
             </button>
-
-
-
-            
-                <button type="submit" class="btn btn-danger mt-4 btn-block" id="made_contract"
+<!--                 <button type="submit" class="btn btn-danger mt-4 btn-block" id="made_contract"
                   data-loading-text="<i class='fa fa-spinner fa-spin '></i>Creando Cliente...">
                   Crear Contrato<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                </button>
-            
-
+                </button> -->
 
           <!--   <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-danger mt-4 btn-block" id="made_contract"
@@ -118,30 +138,14 @@
                   Crear Contrato<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                 </button>
               </div>  -->
-
-
           </form>
-<!--           <button id="button_table"> llenar tabla</button>
-          <div class="row">
-            <table id="table_tabs" data-toggle="table" data-toolbar="#toolbar" data-height="160" data-url="/data/contract/5d11471994815f180c35881e">
-              <thead>
-                <tr>
-                  <th data-field="id">ID</th>
-                  <th data-field="contract">Contrato</th>
-                  <th data-field="cod_tab">Nombre Ficha</th>
-                  <th data-field="Dependencia">Dependencia</th>
-                  <th data-field="valor_ficha">Valor Inicial</th>
-                  <th data-field="valor_ficha_ejecutado">Valor Ejecutado</th>
-                </tr>
-              </thead>
-            </table>
-          </div> -->
 
         </div>
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar|Close</button>
+        <button type="button" class="btn btn-primary">Save changes|Guardar</button>
       </div>
     </div>
   </div>
@@ -149,7 +153,6 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <div class="card mt-4 text-center">
-
       <div class="card mt-4 text-center">
         <div class="car-header">
           <h3>SignUp - Registrar Usuario</h3>
@@ -165,26 +168,29 @@
               </select>
             </div>
             <div class="form-group">
-              <input type="email" id="email" name="email" placeholder="Email" class="form-control" value="prueba@gmail.com">
+              <input type="text" id="name_user" name="name_user" placeholder="Nombre Usuario" class="form-control" value="nombre prueba">
+            </div>            
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Email" class="form-control"><!--  value="prueba@gmail.com"> -->
             </div>
             <div class="form-group">
-              <input type="password" id="password" name="password" placeholder="Password" class="form-control"
-                value="prueba@gmail.com">
+              <input type="password" id="password" name="password" placeholder="Password" class="form-control" value="123456">
             </div>
             <div class="form-group">
               <input type="password" id="password_again" name="password_again" placeholder="Password"
-                class="form-control" value="prueba@gmail.com">
+                class="form-control" value="">
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="col-md-12">
                   <input type="text" id="codcontract_user" name="codcontract_user" placeholder="Buscar Contrato"
-                    class="form-control" value="CG-XXX555">
+                    class="form-control" autocomplete="off"><!--  value="CG-XXX555"> -->
+                    <div id="demo"></div>
                   <div class="btn-group" role="group" aria-label="...">
                     <button type="button" id="search_contract" class="btn btn-warning">Buscar <span
                         class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    <button type="button" id="asign_contract" class="btn btn-success">Asginar <span
-                        class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                      <button type="button" id="asign_contract" class="btn btn-success">Asignar <span
+                        class="glyphicon glyphicon-check" aria-hidden="true"></span></button> 
                     <button type="submit" id="make_contract" class="btn btn-danger">Crear <span
                         class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
                   </div>
@@ -192,61 +198,111 @@
               </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-4 btn-block">
+        <button id="reg_user" type="submit" class="btn btn-primary mt-4 btn-block">
           SignUp | Reg. Usuario
         </button>
+        
         </form>
       </div>
     </div>
   </div>
-
-
-
   </form>
 
-  <button id="button_table"> llenar tabla</button>
-  <div class="row">
-    <!-- <table id="table_tabs" data-toggle="table" data-toolbar="#toolbar" data-height="160" data-url="/data/contract/5d11471994815f180c35881e"> -->
-
-      <div class="col-md-12 mt-8">
-          <table
-          id="table_tabs"
-          data-toggle="table_tabs"
-          data-url="/data/contract/5d11471994815f180c35881e"
-          data-toolbar="#toolbar"
-          data-search="true"
-          data-show-refresh="true"
-          data-show-toggle="true"
-          data-show-fullscreen="true"
-          data-show-columns="true"
-          data-detail-view="true"
-          data-show-export="true"
-          data-detail-formatter="detailFormatter"
-          data-minimum-count-columns="2"
-          data-show-pagination-switch="true"
-          data-pagination="true"
-          data-id-field="id"
-          data-page-list="[10, 25, 50, 100, ALL]"
-          data-show-footer="true"
-          data-side-pagination="server"
-          data-response-handler="responseHandler"        
-          class="table table-bordered table-hover">
-       <thead class="thead-dark">
-        
-      
-        <tr>
-          <th data-field="contract">contract</th>
-          <th data-field="tab">tab</th>
-          <th data-field="Dependencia">Dependencia</th>
-          <th data-field="Dependencia">Dependencia</th>
-          <th data-field="valor_ficha">valor_ficha</th>
-          <th data-field="valor_ficha_ejecutado">Valor Ejecutado</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-
+  
+<!--  <div id="toolbar">
+  <button id="button" class="btn btn-secondary">prepend</button>
 </div>
+<table
+  id="table"
+  data-toggle="table"
+  data-toolbar="#toolbar"
+  data-height="460"
+  data-url="json/data1.json">
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="name">Item Name</th>
+      <th data-field="price">Item Price</th>
+    </tr>
+  </thead>
+</table> -->
+
+<script>
+  //nit_cc_client
+  //sel_nit_cc
+  $(document).ready(function(){
+    
+    var can_create_client = false;
+    document.getElementById("asign_nit").disabled = true;  
+    document.getElementById("made_client").disabled = true;
+
+    //search_nit xxx
+
+    $('#codcontract_user').on('input', function(){
+    console.log("keyup, se bloquea la creación de usuarios");
+    can_make_contrac= true;
+    });
+
+
+        $('#nit_cc_client').keyup(function(){
+          var nit_cc_client_val = $(this).val();
+          if(nit_cc_client_val.length > 3){
+            //console.log(query);          
+              $.getJSON( "/data/admin/client/"+nit_cc_client_val,{})
+                  .done(function( data, textStatus, jqXHR ) {
+                   /* var output = '<ul class="list-unstyled">';
+                      console.log(data.selcontract.length);
+                      console.log(data.selcontract);
+                  if(data.selcontract.length>0){
+                    
+                  if ( console && console.log ) {
+                      console.log( "La solicitud se ha completado correctamente." );
+                     // console.log(data)
+                      //console.log(data.selcontract[1].cliente.name_client);
+                      
+                      $.each(data.selcontract, function(i, val){ 
+                          output +='<li id='+val._id+'>'+val.Codcontract+'/'+val.cliente.name_client+'</li>';
+                      });
+                      output += '</ul>';
+                      $('#sel_contract').fadeIn();  
+                      $('#sel_contract').html(output);  
+                      
+                  }
+                }else{
+                  output += '<li>Contrato No encontrado</li>';
+                  output += '</ul>';
+                  $('#sel_contract').html(output);
+                  $('#sel_contract').fadeOut();
+                }
+                */
+              })
+              .fail(function( jqXHR, textStatus, errorThrown ) {
+                  if ( console && console.log ) {
+                      console.log( "Algo ha fallado: " +  textStatus);
+                  }
+              });
+  
+  
+  
+            }
+          });	//fin ide unico
+  
+/*           $(document).on('click', 'li', function(){
+            var arrayDeCadenas = $(this).text().split('/');  
+             $('#nit_cc_client').val(arrayDeCadenas[0]);  
+             $('#sel_nit_cc').fadeOut();  
+        });   */
+  
+        });  
+  
+  </script>
+
+<script>
+$(document).ready(function(){
+
+
+      });  
+</script>
 <script>
 
   
@@ -275,7 +331,7 @@ $('#made_contract').on('click', function () {
     var tel_client =          document.getElementById('tel_client').value;
     var nit_cc_client =       document.getElementById('nit_cc_client').value;
 
-    var data_save = '&name_client=' + name_client + '&cod_contract_selec=' + cod_contract_selec + 
+    var data_save = '&name_client=' + name_client + '&codcontract=' + cod_contract_selec + 
                     '&dir_client=' + dir_client + '&tel_client=' + tel_client+ '&nit_cc_client=' + nit_cc_client;
     $.ajax({
                 url: '/admin/client/add', // url where to submit the request
@@ -314,8 +370,425 @@ $('#made_contract').on('click', function () {
 </script>
 
 <script>
-  var $table = $('#table_tabs')
-  var $button = $('#button_table')
+ 
+</script>
+
+
+
+  <script>
+  
+  $(document).ready(function () {    
+
+  var can_make_contrac = false;
+  document.getElementById("asign_contract").disabled = true;  
+  document.getElementById("make_contract").disabled = true;
+  
+  
+  $('#asign_contract').click(function () {      
+      console.log("asign_contract");
+      if ($("#for_user").valid()){
+        //------------- 
+        var data_save = $(for_user).serialize();
+          console.log("try Submit for_user: "+data_save);    
+        
+            $.ajax({
+                        url: '/admin/signup/', // url where to submit the request
+                        type : "POST", // type of action POST || GET
+                        dataType : 'json', // data type
+                        data : data_save, // post data || get data
+                        success : function(result, message) {
+                            // you can see the result from the console
+                            // tab of the developer tools
+                            
+                            console.log(result);
+                            console.log(message);
+                            window.location.reload();
+                        },
+                        error: function(xhr, resp, text) {
+                          console.log("error");
+                            console.log(xhr, resp, text);
+                        }
+                    });
+       
+                  }
+        //---------------
+
+
+  });
+
+  $('#search_contract').click(function () {
+    var can_make_contrac = false;
+    document.getElementById("asign_contract").disabled = true;  
+    document.getElementById("make_contract").disabled = true;
+
+      var codcontract_user =         document.getElementById('codcontract_user').value;                
+            if(codcontract_user.length > 3){
+                        
+              console.log("search_contract");
+            $.getJSON( "/data/admin/contract/"+codcontract_user,{})
+            .done(function( data, textStatus, jqXHR ) {
+              var output = '<ul class="list-unstyled">';
+                console.log(data.selcontract.length+" status "+jqXHR.status);
+                console.log(data.selcontract);
+            if(data.selcontract.length>0){
+              console.log( "click, La solicitud se ha completado correctamente con resultados.");                  
+            if ( console && console.log ) {
+                console.log( "click, La solicitud se ha completado correctamente.");
+               // console.log(data)
+                //console.log(data.selcontract[1].cliente.name_client);                    
+                $.each(data.selcontract, function(i, val){ 
+                    output +='<li id='+val._id+'>'+val.Codcontract+'</li>';
+                    /* output +='<li id='+val._id+'>'+val.Codcontract+'/'+val.cliente.name_client+'</li>'; */
+                });
+                output += '</ul>';
+                $('#demo').fadeIn();  
+                $('#demo').delay(500).fadeTo("slow", 0.6);  
+                //$('#demo').html(output);  
+                document.getElementById("demo").innerHTML = output;
+            }
+          }else{
+            console.log( "click, La solicitud se ha completado sin resultados." );
+            output += '<li>Contrato No encontrado</li>';
+            output += '</ul>';
+            $('#demo').html(output);
+            $('#demo').delay(500).fadeTo("slow", 0.6);  
+                //$('#demo').html(output);  
+            document.getElementById("demo").innerHTML = output;
+            can_make_contrac= true;
+
+            document.getElementById("asign_contract").disabled = true;
+            document.getElementById("make_contract").disabled = false;
+            document.getElementById("reg_user").disabled = true;
+            
+          }
+        })
+        .fail(function( jqXHR, textStatus, errorThrown ) {
+            if ( console && console.log ) {
+                console.log( "Algo ha fallado: " +  textStatus);
+            }
+        });
+      
+      }    
+});
+
+$('#codcontract_user').on('input', function(){
+    console.log("keyup, se bloquea la creación de usuarios");
+    can_make_contrac= true;
+});
+
+
+  $('#codcontract_user').keyup(function(){
+    var codcontract_user = $(this).val();
+    
+    if(codcontract_user.length > 5){
+      //console.log(query);
+      document.getElementById("make_contract").disabled = false;
+      document.getElementById("asign_contract").disabled = true;
+
+        $.getJSON( "/data/admin/contract/"+codcontract_user,{})
+            .done(function( data, textStatus, jqXHR ) {
+              var output = '<ul class="list-unstyled">';
+                console.log(data.selcontract.length);
+                console.log(data.selcontract);
+            if(data.selcontract.length>0){                  
+            if ( console && console.log ) {
+                console.log( "keyup, La solicitud se ha completado correctamente, con resultados." );
+               // console.log(data)
+                //console.log(data.selcontract[1].cliente.name_client);                    
+                $.each(data.selcontract, function(i, val){ 
+                    /* output +='<li id='+val._id+'>'+val.Codcontract+'/'+val.cliente.name_client+'</li>'; */
+                    output +='<li id='+val._id+'>'+val.Codcontract+'</li>';
+                });
+                output += '</ul>';
+                $('#demo').delay(500).fadeTo("slow", 0.6);  
+                //$('#demo').html(output);  
+                document.getElementById("demo").innerHTML = output;
+            }
+          }else{
+            console.log( "keyup, La solicitud se ha completado sin resultados." );
+            output += '<li>Contrato No encontrado</li>';
+            output += '</ul>';
+            document.getElementById("demo").innerHTML = output;
+            //$('#demo').html(output);
+            $('#demo').delay(500).fadeTo("slow", 0.6);
+            can_make_contrac= true;
+            document.getElementById("asign_contract").disabled = true;
+            //document.getElementById("make_contract").disabled = false;
+            document.getElementById("reg_user").disabled = true;
+          }
+        })
+        .fail(function( jqXHR, textStatus, errorThrown ) {
+            if ( console && console.log ) {
+                console.log( "Algo ha fallado: " +  textStatus);
+            }
+        });
+      }
+    });	//fin ide unico
+
+    $(document).on('click', 'li', function(){
+      var arrayDeCadenas = $(this).text().split('/');  
+       $('#codcontract_user').val(arrayDeCadenas[0]);  
+       $('#demo').fadeOut();
+       can_make_contrac= false;
+       document.getElementById("asign_contract").disabled = false;
+       document.getElementById("make_contract").disabled = true;
+       document.getElementById("reg_user").disabled = false;  
+    });  
+
+    //----------------
+
+    
+    //format type currency
+/*     document.getElementById("valor_mod").onblur =function (){    
+
+      this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }         
+
+
+    document.getElementById("valor_ficha_mod").onblur =function (){    
+
+      this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }    */      
+
+    var resul_modal_id = "";
+
+    $.validator.setDefaults({   
+    // added submitHandler only for demo
+    submitHandler: function(form) { 
+    //return false; 
+    //add validation process for a form submited
+        //for user validation 
+        if (form.id=="for_user"){
+          //name_user
+          
+              var selectionrole = document.getElementById('selectionrole').value;
+              var codcontract_user = document.getElementById('codcontract_user').value;
+              console.log("try Submit for_user "+codcontract_user+" can_make_contrac "+ can_make_contrac);
+              if (selectionrole == "coord") {
+              if (can_make_contrac) {
+                  if (confirm('Seleccionaste: Crear el Nuevo contrato ' + codcontract_user + ', es correcto ?')) {                
+                  document.getElementById('codcontract').value= codcontract_user;
+                  var email_selec = document.getElementById('email').value;
+                  document.getElementById('email_mod').value = email_selec;
+                  console.log("Carga Modal");
+                  $("#contractModal").modal()
+                }
+              }else{
+                    form.submit();
+                    console.log("submit");
+              }
+            }
+        }
+        //modal validation 
+        if (form.id=="for_modal"){
+          var email_selec       = document.getElementById('email').value;
+          var codcontract_selec = document.getElementById('codcontract').value;          
+          var valor_ficha_str       = document.getElementById('valor_ficha_mod').value;    
+          var valor_str             = document.getElementById('valor_mod').value;
+
+          var valor = valor_str.replace(/,/g, "");
+          var valor_ficha = valor_ficha_str.replace(/,/g, "");
+
+          var data_save = $(form).serialize()+"&email="+email_selec+"&Codcontract="+
+                          codcontract_selec+"&valor_ficha="+valor_ficha+"&valor="+valor;
+          console.log("try Submit for_modal: "+data_save);          
+          $.ajax({
+                        url: '/admin/contract/add', // url where to submit the request
+                        type : "POST", // type of action POST || GET
+                        dataType : 'json', // data type
+                        data : data_save, // post data || get data
+                        success : function(result) {
+                            // you can see the result from the console
+                            // tab of the developer tools
+                            console.log(result.contract_id);
+                                                       
+                            document.getElementById("codcontract_id").value= result.contract_id;
+                            //bloqueo campos
+                            document.getElementById("codcontract").disabled = true;
+                            document.getElementById("valor_mod").disabled = true;
+                            document.getElementById("name_client").disabled = true;
+                            document.getElementById("dir_client").disabled = true;
+                            document.getElementById("tel_client").disabled = true;
+                            document.getElementById("nit_cc_client").disabled = true;
+
+                            document.getElementById("search_nit").disabled = true;
+                            document.getElementById("asign_nit").disabled = true;
+                            document.getElementById("made_client").disabled = true;
+                            document.getElementById("main_crea_contr").disabled = true;
+                            
+                            
+                        },
+                        error: function(xhr, resp, text) {
+                            console.log(xhr, resp, text);
+                        }
+                    });
+
+        }
+
+    }
+});
+
+
+/* 
+// init validator obj and set the rules
+$('#formB').validate({
+    rules: {
+        name2: {
+            required: true
+        }
+    }
+}); */
+
+   // validate signup form on keyup and submit         
+   $('#for_modal').validate({
+        rules: {
+          //contrato y ficha quedan pendientes    
+          valor_mod: { 
+            required: true,
+            minlength: 3
+          },
+          email_mod: {
+            required: true,
+            email_mod: true
+          },
+          codcontract: {
+            required: true,
+            minlength: 3
+          },
+          name_client: {
+            required: true,
+            minlength: 5
+          },        
+          dir_client: {
+            required: true,
+            minlength: 5
+          },
+          tel_client: {
+            required: true,
+            minlength: 7
+          },
+          tab: {
+            required: true,
+            minlength: 5
+          },
+          Dependencia: {
+            required: true,
+            minlength: 5
+          },
+          valor_ficha_mod: {   
+            required: true,
+            minlength: 3
+          },
+          nit_cc_client: {
+            required: true,
+            minlength: 5
+          }          
+        },  
+        messages: {
+          valor_mod: {
+            required: "Por favor ingrese un Valor para el Contrato",
+            minlength: "Ingrese un valor de ficha de contrato de mas de 3 cifras"
+          },
+          name_client: {
+            required: "Por favor ingrese  nombre del cliente que toma el contrato",
+            minlength: "el nombre del cliente debe tener por lo menos 5 caracteres"
+          },
+          dir_client: {
+            required: "Por favor ingrese una dirección para el cliente del contrato",
+            minlength: "Por favor ingrese una dirección correcta para el cliente del contrato",
+          },
+          tel_client: {
+            required: "Por favor ingrese un teléfono fijo o celular para el cliente del contrato",
+            minlength: "Por favor ingrese un teléfono fijo o celular correcta para el cliente del contrato",
+          },
+          nit_cc_client: {
+            required: "Por favor ingrese el NIt o Cedula para el cliente del contrato",
+            minlength: "Por favor ingrese el NIt o Cedula correcta para el cliente del contrato",
+          },
+          tab: {
+            required: "Por favor ingrese un nombre o código para la primera ficha del contrato",
+            minlength: "Por favor ingrese un nombre o código para la primera ficha del contrato, con mas de 5 caracteres",
+          },
+          Dependencia: {
+            required: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato",
+            minlength: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato, con mas de 5 caracteres",
+          },
+          valor_ficha_mod: {
+            required: "Por favor ingrese el valor de la ficha asignada a la Dependencia",
+            minlength: "Por favor ingrese el valor de la ficha asignada a la  Dependencia , con mínimo de 3 cifras",
+          },
+          codcontract: {
+            required: "Ingrese un código para identificar el contrato de transporte",
+            minlength: "Ingrese un código de contrato Valido minimo 3 caracteres"
+          },
+          email_mod: "Por Favor ingrese una dirección email valida"
+        }
+
+        });
+
+ // validate signup form on keyup and submit          
+ $('#for_user').validate({
+      rules: {
+        //contrato y ficha quedan pendientes    
+        role: {
+          required: true
+        },
+        name_user:{
+          required: true,
+          minlength: 5
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        password: {
+          required: true,
+          minlength: 5
+        },
+        password_again: {
+          equalTo: "#password"
+        },
+        codcontract_user: {
+          required: true,
+          minlength: 5
+        }
+      },
+
+      messages: {
+        role: {
+          required: "Por favor seleciones un Role para el Usuario."
+        },
+        name_user: {
+          required: "Por favor Ingrese nombre del Usuario.",
+          minlength: "el nombre de usuario debe tener por lo menos 5 caracteres"
+        },
+        password: {
+          required: "Por favor ingrese  password temporal para el usuario",
+          minlength: "el password debe tener por lo menos 5 números"
+        },
+        password_again: {
+          equalTo: "Por favor repita el password temporal para el usuario"
+        },
+        codcontract_user: {
+          required: "Ingrese un código para identificar el contrato de transporte",
+          minlength: "Ingrese un código de contrato Valido números y letras son permitidos"
+        },
+        email: "Por Favor ingrese una dirección email valida"
+      }
+    });
+
+});
+
+
+
+/*   var $table = $('#table_tabs');
+  
 
   function randomData() {
     var startId = ~~(Math.random() * 100)
@@ -335,24 +808,24 @@ $('#made_contract').on('click', function () {
     return rows
   }
 
-  $(function () {
+  
     $button.click(function () {
-      
-      
-      $.getJSON( "/data/contract/5d11471994815f180c35881e",{})
+      var resul_modal_id = document.getElementById("codcontract_id").value;     
+       //alert(resul_modal_id);
+      $.getJSON( "/data/contract/"+resul_modal_id,{})
     .done(function( data, textStatus, jqXHR ) {
         if ( console && console.log ) {
-            console.log( "La solicitud se ha completado correctamente." );
+            console.log( "La solicitud se ha completado correctamente...." );
             console.log(data);
 
-            $table.bootstrapTable('prepend', data.ficha);
+            $table.bootstrapTable('prepend', data);
         }
     })
     .fail(function( jqXHR, textStatus, errorThrown ) {
         if ( console && console.log ) {
             console.log( "Algo ha fallado: " +  textStatus);
         }
-});
+    });
       
       
       
@@ -361,9 +834,9 @@ $('#made_contract').on('click', function () {
 
       
     })
-  })
-
-  var datax = [
+  
+*/
+  var datax = [ 
     {
       "id": 0,
       "contract": "CG-0426",
@@ -413,209 +886,16 @@ $('#made_contract').on('click', function () {
       "valor_ficha_ejecutado": -8000000,
     }
   ];
-</script>
-
-
-
-  <script>
   
-  $(document).ready(function () {
-    $.validator.setDefaults({   
-    // added submitHandler only for demo
-    submitHandler: function(form) { 
-    //return false; 
-    //add validation process for a form submited
-        //for user validation 
-        if (form.id=="for_user"){
-          
-              var selectionrole = document.getElementById('selectionrole').value;
-              var codcontract_user = document.getElementById('codcontract_user').value;
-              console.log("try Submit for_user"+codcontract_user);
-              if (selectionrole == "coord") {                
-                  if (confirm('Seleccionaste Crear el contrato ' + codcontract_user + ' nuevo Contrato ?')) {
-                  //form.submit();          
-                  document.getElementById('codcontract').value= codcontract_user;
-                  var email_selec = document.getElementById('email').value;
-                  document.getElementById('email_mod').value = email_selec;
-                  console.log("Carga Modal");
-                  $("#contractModal").modal()
-                }
-              }
-        }
-        //modal validation 
-        if (form.id=="for_modal"){
-          var email_selec = document.getElementById('email').value;
-          var data_save = $(form).serialize()+"&email="+email_selec;
-          console.log("try Submit for_modal: "+data_save);          
-          $.ajax({
-                        url: '/admin/contract/add', // url where to submit the request
-                        type : "POST", // type of action POST || GET
-                        dataType : 'json', // data type
-                        data : data_save, // post data || get data
-                        success : function(result) {
-                            // you can see the result from the console
-                            // tab of the developer tools
-                            console.log(result);
-                  
-
-                            
-                        },
-                        error: function(xhr, resp, text) {
-                            console.log(xhr, resp, text);
-                        }
-                    });
-
-        }
-
-    }
-});
-
-
-/* 
-// init validator obj and set the rules
-$('#formB').validate({
-    rules: {
-        name2: {
-            required: true
-        }
-    }
-}); */
-
-   // validate signup form on keyup and submit         
-   $('#for_modal').validate({
-        rules: {
-          //contrato y ficha quedan pendientes    
-          valor: {
-            required: true
-          },
-          email_mod: {
-            required: true,
-            email_mod: true
-          },
-          codcontract: {
-            required: true,
-            minlength: 5
-          },
-          name_client: {
-            required: true,
-            minlength: 5
-          },        
-          dir_client: {
-            required: true,
-            minlength: 5
-          },
-          tel_client: {
-            required: true,
-            minlength: 7
-          },
-          tab: {
-            required: true,
-            minlength: 5
-          },
-          Dependencia: {
-            required: true,
-            minlength: 5
-          },
-          valor_ficha: {
-            required: true,
-            minlength: 3
-          },
-          nit_cc_client: {
-            required: true,
-            minlength: 5
-          }          
-        },  
-        messages: {
-          valor: {
-            required: "Por favor ingrese un Valor para el Contrato"
-          },
-          name_client: {
-            required: "Por favor ingrese  nombre del cliente que toma el contrato",
-            minlength: "el nombre del cliente debe tener por lo menos 5 caracteres"
-          },
-          dir_client: {
-            required: "Por favor ingrese una dirección para el cliente del contrato",
-            minlength: "Por favor ingrese una dirección correcta para el cliente del contrato",
-          },
-          tel_client: {
-            required: "Por favor ingrese un teléfono fijo o celular para el cliente del contrato",
-            minlength: "Por favor ingrese un teléfono fijo o celular correcta para el cliente del contrato",
-          },
-          nit_cc_client: {
-            required: "Por favor ingrese el NIt o Cedula para el cliente del contrato",
-            minlength: "Por favor ingrese el NIt o Cedula correcta para el cliente del contrato",
-          },
-          tab: {
-            required: "Por favor ingrese un nombre o código para la primera ficha del contrato",
-            minlength: "Por favor ingrese un nombre o código para la primera ficha del contrato, con mas de 5 caracteres",
-          },
-          Dependencia: {
-            required: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato",
-            minlength: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato, con mas de 5 caracteres",
-          },
-          valor_ficha: {
-            required: "Por favor ingrese el valor de la ficha asignada a la Dependencia",
-            minlength: "Por favor ingrese el valor de la ficha asignada a la  Dependencia , con mínimo de 3 cifras",
-          },
-          codcontract: {
-            required: "Ingrese un código para identificar el contrato de transporte",
-            minlength: "Ingrese un código de contrato Valido números y letras son permitidos"
-          },
-          email_mod: "Por Favor ingrese una dirección email valida"
-        }
-
-        });
-
- // validate signup form on keyup and submit          
- $('#for_user').validate({
-      rules: {
-        //contrato y ficha quedan pendientes    
-        role: {
-          required: true
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        password: {
-          required: true,
-          minlength: 5
-        },
-        password_again: {
-          equalTo: "#password"
-        },
-        codcontract: {
-          required: true,
-          minlength: 5
-        }
-      },
-
-      messages: {
-        role: {
-          required: "Por favor seleciones un Role para el Usuario"
-        },
-        password: {
-          required: "Por favor ingrese  password temporal para el usuario",
-          minlength: "el password debe tener por lo menos 5 números"
-        },
-        password_again: {
-          equalTo: "Por favor repita el password temporal para el usuario"
-        },
-        codcontract: {
-          required: "Ingrese un código para identificar el contrato de transporte",
-          minlength: "Ingrese un código de contrato Valido números y letras son permitidos"
-        },
-        email: "Por Favor ingrese una dirección email valida"
-      }
-    });
-
-});
-
   </script>
 
   
 <script>
      //var $table = $('#tablex');
+     var $button = $('#button_table');
+$button.click(function () {
+  initTable();
+});
      var $table = $('#table_tabs');
      var $remove = $('#remove');
       
@@ -653,27 +933,20 @@ $('#formB').validate({
                   
                     window.operateEvents = {                  
                       'click .remove': function (e, value, row, index) {              
-                        if(confirm("Esta seguro de que quiere eliminar este servicio.?")){
-                          $.ajax({
-                          url:"/coord/delete/"+row._id,
-                          method:"GET",     
+                        if(confirm("Esta seguro de que quiere eliminar este servicio.?"+row._id+" and contract " +row.contract)){
+                          $.ajax({ 
+                          url:"/admin/"+row.contract+"/"+row._id+"/remove", //'/admin/:contractId/:fichaId/remove'
+                          method:"PUT",     
                           success:function(data){
-                            socket.emit('coord:oper', {
-                            message: "actualiza bandeja de entrada",
-                            accion: "coord elimina servicio"
-                          });
-                          socket.emit('oper:motor', {
-                            message: "actualiza bandeja de entrada",
-                            accion: "coord elimina servicio"
-                          });
+                            console.log(data);
                           $table.bootstrapTable('refresh');
-                          }
+                          } 
                           });
                         }
                         
                       }
                     }
-                  
+                    
                     function totalTextFormatter(data) {
                       return 'Total';
                     }
@@ -693,51 +966,39 @@ $('#formB').validate({
                   
                     function initTable() {
                       $table.bootstrapTable('destroy').bootstrapTable({
-                        height: 250,
+                        height: 150,
                         locale: 'es-ES',//$('#locale').val(),
                         columns: [
                           [{
                             field: 'state',
-                            checkbox: true,
-                            rowspan: 2,
-                            align: 'center',
-                            valign: 'middle'
-                          }, {
-                            title: 'Pasajero',
-                            field: 'pasajero',    
+                            checkbox: false,
                             rowspan: 2,
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
-                            //,
-                            //footerFormatter: totalTextFormatter
-                          }, {
-                            title: 'Detalles Servicio',
-                            colspan: 3,
-                            align: 'center'
+                            events: window.operateEvents,
+                            formatter: operateFormatter
                           }],
                           [{
                             field: 'tab',
-                            title: 'tab',
-                            sortable: true,
+                            //title: 'Codigo Ficha',
+                            //sortable: true,
                             //footerFormatter: totalNameFormatter,
                             align: 'center'
                           }, {
                             field: 'Dependencia',
-                            title: 'Dependencia',
-                            sortable: true,
+                            //title: 'Dependencia..',
+                            //sortable: true,
                             align: 'center',
                             //footerFormatter: totalPriceFormatter
                           }, {
                             field: 'valor_ficha',
-                            title: 'Item valor_ficha',
-                            align: 'center',
-                            events: window.operateEvents,
-                            formatter: operateFormatter
+                            //title: 'Item valor_ficha',
+                            align: 'center'
+
                           }, {
-                            field: 'contract',
-                            title: 'contract',
-                            sortable: true,
+                            field: 'valor_ficha_ejecutado',
+                            //title: 'contract..',
+                            //sortable: true,
                             align: 'center',
                             //footerFormatter: totalPriceFormatter
                           }]
@@ -767,9 +1028,25 @@ $('#formB').validate({
                   
                     $(function() {
                       initTable();
-            
+
+                      var resul_modal_id = document.getElementById("codcontract_id").value;     
+                      //alert(resul_modal_id);
+                      $.getJSON( "/data/contract/"+resul_modal_id,{})                     
+                      
+                          .done(function( data, textStatus, jqXHR ) {
+                              if ( console && console.log ) {
+                                  console.log( "La solicitud se ha completado correctamente .." );
+                                  console.log(data);
+
+                                  $table.bootstrapTable('prepend', data.ficha);
+                              }
+                          })
+                          .fail(function( jqXHR, textStatus, errorThrown ) {
+                              if ( console && console.log ) {
+                                  console.log( "Algo ha fallado: " +  textStatus);
+                              }
+                      });
             
                     });
     
     </script>
-    
