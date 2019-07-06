@@ -1,0 +1,49 @@
+{"_id":{"$oid":"5d15a556dccc552f1865f179"},"tab":"General","Dependencia":"Encuesta Hogares","valor_ficha":10000000,"contract":{"$oid":"5d15a556dccc552f1865f177"},"__v":0}
+{"_id":{"$oid":"5d15a659dccc552f1865f17d"},"tab":"General","Dependencia":"Encuesta Hogares BGTA","valor_ficha":20000000,"contract":{"$oid":"5d15a659dccc552f1865f17b"},"__v":0}
+{"_id":{"$oid":"5d15a775dccc552f1865f182"},"tab":"General","Dependencia":"Encuesta Hogares BGTA 2","valor_ficha":50000000,"contract":{"$oid":"5d15a775dccc552f1865f180"},"__v":0}
+{"_id":{"$oid":"5d15a77adccc552f1865f186"},"tab":"General","Dependencia":"Encuesta Hogares BGTA 2","valor_ficha":50000000,"contract":{"$oid":"5d15a77adccc552f1865f184"},"__v":0}
+{"_id":{"$oid":"5d15a809dccc552f1865f18a"},"tab":"General 2","Dependencia":"Encuesta Hogares BGTA 2","valor_ficha":40000000,"contract":{"$oid":"5d15a809dccc552f1865f188"},"__v":0}
+{"_id":{"$oid":"5d15a80fdccc552f1865f18e"},"tab":"General 2","Dependencia":"Encuesta Hogares BGTA 2","valor_ficha":40000000,"contract":{"$oid":"5d15a80fdccc552f1865f18c"},"__v":0}
+{"_id":{"$oid":"5d15a9bbdccc552f1865f192"},"tab":"General 4","Dependencia":"Encuesta Hogares BGTA 4","valor_ficha":40000000,"contract":{"$oid":"5d15a9bbdccc552f1865f190"},"__v":0}
+{"_id":{"$oid":"5d15aaf1dccc552f1865f197"},"tab":"General 47","Dependencia":"Encuesta Hogares BGTA 4","valor_ficha":7000000,"contract":{"$oid":"5d15aaf1dccc552f1865f195"},"__v":0}
+{"_id":{"$oid":"5d15ab56dccc552f1865f19b"},"tab":"General 474","Dependencia":"Encuesta Hogares BGTA 4","valor_ficha":2000000,"contract":{"$oid":"5d15ab56dccc552f1865f199"},"__v":0}
+{"_id":{"$oid":"5d1fd2c767618c0d44c47ff5"},"tab":"General","Dependencia":"gralh","valor_ficha":0,"contract":{"$oid":"5d1fd2c767618c0d44c47ff3"},"__v":0}
+{"_id":{"$oid":"5d1fd36567618c0d44c47ff9"},"tab":"General","Dependencia":"fffff","valor_ficha":null,"contract":{"$oid":"5d1fd36567618c0d44c47ff7"},"__v":0}
+{"_id":{"$oid":"5d1fd40667618c0d44c47ffd"},"tab":"General","Dependencia":"fffff","valor_ficha":0,"contract":{"$oid":"5d1fd40667618c0d44c47ffb"},"__v":0}
+{"_id":{"$oid":"5d1fd41867618c0d44c48001"},"tab":"General","Dependencia":"fffff","valor_ficha":0,"contract":{"$oid":"5d1fd41867618c0d44c47fff"},"__v":0}
+{"_id":{"$oid":"5d1fd4f067618c0d44c48005"},"tab":"General","Dependencia":"ffsdfsdf","valor_ficha":0,"contract":{"$oid":"5d1fd4f067618c0d44c48003"},"__v":0}
+{"_id":{"$oid":"5d1fd5fc67618c0d44c48009"},"tab":"General","Dependencia":"ffsdfsdf","valor_ficha":0,"contract":{"$oid":"5d1fd5fc67618c0d44c48007"},"__v":0}
+{"_id":{"$oid":"5d1fd60267618c0d44c4800d"},"tab":"General","Dependencia":"ffsdfsdf","valor_ficha":0,"contract":{"$oid":"5d1fd60267618c0d44c4800b"},"__v":0}
+{"_id":{"$oid":"5d1fd75c67618c0d44c48017"},"tab":"General","Dependencia":"asadsd","valor_ficha":12312312,"contract":{"$oid":"5d1fd75c67618c0d44c48015"},"__v":0}
+{"_id":{"$oid":"5d20311d331fd13bd4788ec7"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d20351c8cc3b50ddc68bd93"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d203626736ccd3f8c752f4d"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d20375f6b760836648f66da"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d2037af94ab0105188de7b4"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d203a2fad291536a82e3a30"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d203e110483df1b30cf2321"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d20411d8ad17a388445e952"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d20412b8ad17a388445e957"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d2041c98ad17a388445e95c"},"tab":"ficha general","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d2042ad8ad17a388445e961"},"tab":"ficha general 2","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d2043b6d5e73d10c86f018c"},"tab":"General","Dependencia":"ventas","valor_ficha":10000000,"__v":0}
+{"_id":{"$oid":"5d2046d64015740ed831ce83"},"tab":"General","Dependencia":"auditores","valor_ficha":20000000,"__v":0}
+{"_id":{"$oid":"5d204a8ddbcf9c3068c1ecd6"},"tab":"General","Dependencia":"periodistas","valor_ficha":12000000,"__v":0}
+{"_id":{"$oid":"5d204c05e9a8b117a476aef2"},"tab":"ficha general 2","Dependencia":"encuesta hogares","valor_ficha":687686,"valor_ficha_ejecutado":44444,"__v":0}
+{"_id":{"$oid":"5d204cc2e9a8b117a476aef7"},"tab":"General","Dependencia":"ventas","valor_ficha":111111,"__v":0}
+{"_id":{"$oid":"5d204cf5e9a8b117a476aefd"},"tab":"General","Dependencia":"ventas","valor_ficha":111111,"__v":0}
+{"_id":{"$oid":"5d204df6e9a8b117a476af02"},"tab":"General","Dependencia":"ventas","valor_ficha":111111,"__v":0}
+{"_id":{"$oid":"5d204e76e9a8b117a476af07"},"tab":"General","Dependencia":"ventas","valor_ficha":111111,"__v":0}
+{"_id":{"$oid":"5d204f76e9a8b117a476af0c"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d204fc0e9a8b117a476af12"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d205008e9a8b117a476af17"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d205031e9a8b117a476af1c"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d2050a2e9a8b117a476af21"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d2051b7e9a8b117a476af26"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d2051dae9a8b117a476af2b"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d205258e9a8b117a476af30"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d205467e9a8b117a476af35"},"tab":"General","Dependencia":"asdasd","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d205527e9a8b117a476af3a"},"tab":"General 2","Dependencia":"hhhhhh","valor_ficha":345345354,"__v":0}
+{"_id":{"$oid":"5d2056a5e9a8b117a476af3f"},"tab":"General","Dependencia":"fffffff","valor_ficha":433433434,"__v":0}
+{"_id":{"$oid":"5d205758e9a8b117a476af45"},"tab":"General","Dependencia":"sadad","valor_ficha":232342,"__v":0}
+{"_id":{"$oid":"5d20587ae9a8b117a476af4b"},"tab":"General","Dependencia":"sadad","valor_ficha":232342,"__v":0}
