@@ -5,7 +5,7 @@
       <div class="panel-body">
         <div class="form-row">
         <label class="control-label">Coordinador:</label>
-        <input type="text" name="coord" value="af1009342@gmail.com" class="form-control" >
+        <!--<input type="text" name="coord" value="<%= user.email %>" class="form-control" >-->
         </div>       
  
         <div class="form-row">
@@ -20,9 +20,9 @@
             <div class="select-editable">
               <select id="contrato" name="contrato" required="required" class="form-control select-md">
                 <option selected>CT-XXXX.../00X</option>
-                <option value="CT-0754-001">CT-0754-001</option>
-                <option value="CT-0754-002">CT-0754-002</option>
-                <option value="CT-0754-003">CT-0754-003</option>
+                <option value="CT-0754-001">CT-0754-001/BP-2900740</option>
+                <option value="CT-0754-002">CT-0754-002/BP-2900741</option>
+                <option value="CT-0754-003">CT-0754-003/BP-2900742</option>
               </select>
             </div>
             <div class="col-sm-5 messages"></div>
@@ -120,7 +120,7 @@
             <select id="depar_ciu_ida" name="depar_ciu_ida" required="required" class="form-control select-md">
               <% include _depar_muni %>
             </select>
-            <div class="col-sm-5 messages"></div>
+            <div class="col-sm-3 messages"></div>
           </div>
 
         </div>
@@ -147,7 +147,7 @@
               <select id="depar_ciu_des_i" name="depar_ciu_des_i" required="required" class="form-control select-md">
                 <% include _depar_muni %>
               </select>
-              <div class="col-sm-5 messages"></div>
+              <div class="col-sm-4 messages"></div>
             </div>
           </div>
         </div>
@@ -186,7 +186,7 @@
             <select id="depar_ciu_reg" name="depar_ciu_reg" required="required" class="form-control select-md">
               <% include _depar_muni %>
             </select>
-            <div class="col-sm-5 messages"></div>
+            <div class="col-sm-3 messages"></div>
           </div>
         </div>
         <center>
@@ -211,7 +211,7 @@
           <select id="depar_ciu_reg_r" name="depar_ciu_reg_r" required="required" class="form-control select-md">
             <% include _depar_muni %>
           </select>
-          <div class="col-sm-5 messages"></div>
+          <div class="col-sm-4 messages"></div>
         </div>        
       </div>
     </div>

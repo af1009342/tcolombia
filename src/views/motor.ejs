@@ -1,6 +1,6 @@
 <%- layout('layouts/main') %>
 
-<h1 class="mt-4">pagina principal motoristas <%= tasko %></h1>
+<h1 class="mt-4">Motoristas <%= user.email %></h1>
 
 <div class="row">
     
@@ -8,7 +8,7 @@
         <table
         id="tablex"
         data-toggle="tablex"
-        data-url="/data/motor/<%= tasko %>"
+        data-url="/data/motor/<%= user.email %>"
         data-toolbar="#toolbar"
         data-search="true"
         data-show-refresh="true"
@@ -92,12 +92,11 @@
         }
       
         window.operateEvents = {
-          'click .like': function (e, value, row, index) {
-           
-            row['asignado'] = '<%= tasko %>';
+          'click .like': function (e, value, row, index) {           
+            //row['asignado'] = '<%= user.email %>';
             //alert('You click like action, row: ' + JSON.stringify(row)+" row id: "+row._id)
             $.ajax({
-                url: "/oper/edit/"+row._id,
+                url: "/motor/edit/"+row._id,
                 type: "PUT",
                 dataType: "json",
                 data: JSON.stringify(row),

@@ -1,41 +1,775 @@
 <%- layout('layouts/main') %>
-<div class="row">
-<div class="col-md-4 offset-md-4">
-  <div class="card mt-4 text-center">
-    <div class="car-header">
-      <h3>SignUp - Registrar Usuario</h3>
-    </div>
-    <div class="card-body">
-        <form action="/signup" method="POST">
-          <div class="form-group">
-          <input type="email" name="email" placeholder="Email" class="form-control">
-        </div>
-          <div class="form-group">
-          <input type="password" name="password" placeholder="Password" class="form-control">
-        </div>
-      </div>
-<!--         <div class="form-group">
-        <input type="text" id="role" name="role" placeholder="role" class="form-control">
-       </div> -->
-        <select name="role" id="selectionrole" class="form-control">
-          <option value="admin">Administrador</option>
-          <option value="coord">Coordinador</option>
-          <option value="oper">Operador</option>
-          <option value="motor" selected>Motorista</option>
-        </select>
 
-          <button type="submit" class="btn btn-primary mt-4 btn-block">
-              SignUp
-          </button>
-        </form>       
+<!-- Modal -->
+<div class="modal fade" id="contractModal" tabindex="-1" role="dialog" aria-labelledby="contractModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contractModalLabel">Crear Contrato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <form id="for_modal" action="/data/contract" method="POST">
+              <h4 class="text-center">Datos Coordinador</h4>
+              <div class="form-group">
+                <input type="text" id="email_mod" name="email_mod" placeholder="email del Coordinador" class="form-control" disabled>
+              </div>
+              <div class="form-group">
+                <input type="text" id="codcontract" name="codcontract" placeholder="Código del Contrato" class="form-control">
+              </div>
+              <div class="form-group">
+                <input type="number" id="valor" name="valor" placeholder="valor contrato" class="form-control">
+              </div>
+              <h4 class="text-center">Datos Cliente</h4> 
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12 text-center ">
+                    <div class="form-group"> 
+                        <input type="text" id="name_client" name="name_client" placeholder="Cliente" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" id="dir_client" name="dir_client" placeholder="Dirección Cliente" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <input type="tel" id="tel_client" name="tel_client" placeholder="Teléfono Cliente" class="form-control">
+                      </div>       
+                    </div> 
+
+                  <div class="col-md-12 text-center ">
+                    <input type="number" id="nit_cc_client" name="nit_cc_client" placeholder="Nit o Cedula" class="form-control">
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button type="button" id="search_nit" class="btn btn-warning">Buscar <span
+                          class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      <button type="button" id="asign_nit" class="btn btn-success">Asginar <span
+                          class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                          <div class="btn-group" role="group" aria-label="...">
+                              <button type="button" class="btn btn-danger" id="made_client"
+                                data-loading-text="<i class='fa fa-spinner fa-spin '></i>Creando Cliente...">
+                                Crear Cliente<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                              </button>
+                            </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+<!--               <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12 text-center ">                    
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button type="button" class="btn btn-danger" id="made_client"
+                        data-loading-text="<i class='fa fa-spinner fa-spin '></i>Creando Cliente...">
+                        Crear Cliente<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+<!--             </form>
+          </div>
+ -->
+          <h4 class="text-center">Datos Ficha</h4>
+          <div class="row">
+          <div class="col-md-4 text-center ">
+          <div class="form-group">
+            <input type="text" name="tab" placeholder="Codigo de primera Ficha" class="form-control"
+              value="General">
+          </div>
+        </div>
+        <div class="col-md-4 text-center ">
+            <div class="form-group">
+              <input type="text" name="Dependencia" placeholder="Dependencia para la primera Ficha" class="form-control"
+                value="">
+            </div>
+          </div>
+          <div class="col-md-4 text-center ">
+              <div class="form-group">
+                <input type="text" name="valor_ficha" placeholder="Valor para la Ficha" class="form-control">
+              </div>
+            </div> 
+      </div>
+    
+             
+          </div>
+          <button type="submit" class="btn btn-primary mt-4 btn-block">
+              Crear Contrato
+            </button>
+
+
+
+            
+                <button type="submit" class="btn btn-danger mt-4 btn-block" id="made_contract"
+                  data-loading-text="<i class='fa fa-spinner fa-spin '></i>Creando Cliente...">
+                  Crear Contrato<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                </button>
+            
+
+
+          <!--   <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-danger mt-4 btn-block" id="made_contract"
+                  data-loading-text="<i class='fa fa-spinner fa-spin '></i>Creando Cliente...">
+                  Crear Contrato<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                </button>
+              </div>  -->
+
+
+          </form>
+<!--           <button id="button_table"> llenar tabla</button>
+          <div class="row">
+            <table id="table_tabs" data-toggle="table" data-toolbar="#toolbar" data-height="160" data-url="/data/contract/5d11471994815f180c35881e">
+              <thead>
+                <tr>
+                  <th data-field="id">ID</th>
+                  <th data-field="contract">Contrato</th>
+                  <th data-field="cod_tab">Nombre Ficha</th>
+                  <th data-field="Dependencia">Dependencia</th>
+                  <th data-field="valor_ficha">Valor Inicial</th>
+                  <th data-field="valor_ficha_ejecutado">Valor Ejecutado</th>
+                </tr>
+              </thead>
+            </table>
+          </div> -->
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="card mt-4 text-center">
+
+      <div class="card mt-4 text-center">
+        <div class="car-header">
+          <h3>SignUp - Registrar Usuario</h3>
+        </div>
+        <div class="card-body">
+          <form id="for_user" action="/signup" method="POST">
+            <div class="form-group">
+              <select name="role" id="selectionrole" class="form-control">
+                <option value="admin">Administrador</option>
+                <option value="coord" selected>Coordinador</option>
+                <option value="oper">Operador</option>
+                <option value="motor" selected>Motorista</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Email" class="form-control" value="prueba@gmail.com">
+            </div>
+            <div class="form-group">
+              <input type="password" id="password" name="password" placeholder="Password" class="form-control"
+                value="prueba@gmail.com">
+            </div>
+            <div class="form-group">
+              <input type="password" id="password_again" name="password_again" placeholder="Password"
+                class="form-control" value="prueba@gmail.com">
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" id="codcontract_user" name="codcontract_user" placeholder="Buscar Contrato"
+                    class="form-control" value="CG-XXX555">
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" id="search_contract" class="btn btn-warning">Buscar <span
+                        class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    <button type="button" id="asign_contract" class="btn btn-success">Asginar <span
+                        class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+                    <button type="submit" id="make_contract" class="btn btn-danger">Crear <span
+                        class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4 btn-block">
+          SignUp | Reg. Usuario
+        </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  </form>
+
+  <button id="button_table"> llenar tabla</button>
+  <div class="row">
+    <!-- <table id="table_tabs" data-toggle="table" data-toolbar="#toolbar" data-height="160" data-url="/data/contract/5d11471994815f180c35881e"> -->
+
+      <div class="col-md-12 mt-8">
+          <table
+          id="table_tabs"
+          data-toggle="table_tabs"
+          data-url="/data/contract/5d11471994815f180c35881e"
+          data-toolbar="#toolbar"
+          data-search="true"
+          data-show-refresh="true"
+          data-show-toggle="true"
+          data-show-fullscreen="true"
+          data-show-columns="true"
+          data-detail-view="true"
+          data-show-export="true"
+          data-detail-formatter="detailFormatter"
+          data-minimum-count-columns="2"
+          data-show-pagination-switch="true"
+          data-pagination="true"
+          data-id-field="id"
+          data-page-list="[10, 25, 50, 100, ALL]"
+          data-show-footer="true"
+          data-side-pagination="server"
+          data-response-handler="responseHandler"        
+          class="table table-bordered table-hover">
+       <thead class="thead-dark">
+        
+      
+        <tr>
+          <th data-field="contract">contract</th>
+          <th data-field="tab">tab</th>
+          <th data-field="Dependencia">Dependencia</th>
+          <th data-field="Dependencia">Dependencia</th>
+          <th data-field="valor_ficha">valor_ficha</th>
+          <th data-field="valor_ficha_ejecutado">Valor Ejecutado</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
 </div>
 <script>
-  document.getElementById("selectionrole").onchange = function() {
-    document.getElementById("role").value = this.value;
-  };
 
+  
+$('#made_contract').on('click', function () {
+    var $this = $('#made_contract');
+    $this.button('loading');
+
+    if($("#form_modal").valid()){
+      console.log('ya esta validado');
+    }
+
+    setTimeout(function () {
+      $this.button('reset'); 
+      $("#made_contract").addClass('btn-success').data('loading-text', 'Contrato Creado').button('loading')
+    }, 1000);
+  });
+
+
+  $('#made_client').on('click', function () {
+    var $this = $(this);
+    $this.button('loading');
+
+    var name_client =         document.getElementById('name_client').value; 
+    var cod_contract_selec =  document.getElementById('codcontract').value;
+    var dir_client =          document.getElementById('dir_client').value;
+    var tel_client =          document.getElementById('tel_client').value;
+    var nit_cc_client =       document.getElementById('nit_cc_client').value;
+
+    var data_save = '&name_client=' + name_client + '&cod_contract_selec=' + cod_contract_selec + 
+                    '&dir_client=' + dir_client + '&tel_client=' + tel_client+ '&nit_cc_client=' + nit_cc_client;
+    $.ajax({
+                url: '/admin/client/add', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                dataType : 'json', // data type
+                data : data_save, // post data || get data
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    console.log(result.client);
+                    if (result.client._id.length>23){
+                      console.log("mas que 0");
+
+                      document.getElementById('name_client').value = result.client.name_client; 
+                      //document.getElementById('codcontract').value = result.client.codcontract;
+                      document.getElementById('dir_client').value  = result.client.dir_client;
+                      document.getElementById('tel_client').value = result.client.tel_client;
+                      document.getElementById('nit_cc_client').value = result.client.nit_cc_client;
+                    }                    
+                    //$("#made_client").attr("disabled", true);
+                    
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+
+
+    setTimeout(function () {
+      $this.button('reset'); 
+      $("#made_client").addClass('btn-success').data('loading-text', 'Cliente Creado').button('loading')
+    }, 1000);
+  });
+
+
+</script>
+
+<script>
+  var $table = $('#table_tabs')
+  var $button = $('#button_table')
+
+  function randomData() {
+    var startId = ~~(Math.random() * 100)
+    var rows = [];
+    rows = datax;
+
+    for (var i = 0; i < 5; i++) {
+      rows.push({
+        id: startId + i,
+        contract: 'contract' + (startId + i),
+        cod_tab: 'Nombre Ficha' + (startId + i),
+        Dependencia: 'Encuesta hogar' + (startId + i),
+        valor_ficha: '$' + (startId + i),
+        valor_ficha_ejecutado: '-$' + (startId + i)
+      })
+    }
+    return rows
+  }
+
+  $(function () {
+    $button.click(function () {
+      
+      
+      $.getJSON( "/data/contract/5d11471994815f180c35881e",{})
+    .done(function( data, textStatus, jqXHR ) {
+        if ( console && console.log ) {
+            console.log( "La solicitud se ha completado correctamente." );
+            console.log(data);
+
+            $table.bootstrapTable('prepend', data.ficha);
+        }
+    })
+    .fail(function( jqXHR, textStatus, errorThrown ) {
+        if ( console && console.log ) {
+            console.log( "Algo ha fallado: " +  textStatus);
+        }
+});
+      
+      
+      
+      //$table.bootstrapTable('prepend', randomData());
+
+
+      
+    })
+  })
+
+  var datax = [
+    {
+      "id": 0,
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    },
+    {
+      "id": 1,      
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    },
+    {
+      "id": 2,
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    },
+    {
+      "id": 3,
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    },
+    {
+      "id": 4,
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    },
+    {
+      "id": 5,
+      "contract": "CG-0426",
+      "cod_tab": "00021",
+      "Dependencia": "DANE Encuesta Hogar",
+      "valor_ficha": 100000000,
+      "valor_ficha_ejecutado": -8000000,
+    }
+  ];
+</script>
+
+
+
+  <script>
+  
+  $(document).ready(function () {
+    $.validator.setDefaults({   
+    // added submitHandler only for demo
+    submitHandler: function(form) { 
+    //return false; 
+    //add validation process for a form submited
+        //for user validation 
+        if (form.id=="for_user"){
+          
+              var selectionrole = document.getElementById('selectionrole').value;
+              var codcontract_user = document.getElementById('codcontract_user').value;
+              console.log("try Submit for_user"+codcontract_user);
+              if (selectionrole == "coord") {                
+                  if (confirm('Seleccionaste Crear el contrato ' + codcontract_user + ' nuevo Contrato ?')) {
+                  //form.submit();          
+                  document.getElementById('codcontract').value= codcontract_user;
+                  var email_selec = document.getElementById('email').value;
+                  document.getElementById('email_mod').value = email_selec;
+                  console.log("Carga Modal");
+                  $("#contractModal").modal()
+                }
+              }
+        }
+        //modal validation 
+        if (form.id=="for_modal"){
+          var email_selec = document.getElementById('email').value;
+          var data_save = $(form).serialize()+"&email="+email_selec;
+          console.log("try Submit for_modal: "+data_save);          
+          $.ajax({
+                        url: '/admin/contract/add', // url where to submit the request
+                        type : "POST", // type of action POST || GET
+                        dataType : 'json', // data type
+                        data : data_save, // post data || get data
+                        success : function(result) {
+                            // you can see the result from the console
+                            // tab of the developer tools
+                            console.log(result);
+                  
+
+                            
+                        },
+                        error: function(xhr, resp, text) {
+                            console.log(xhr, resp, text);
+                        }
+                    });
+
+        }
+
+    }
+});
+
+
+/* 
+// init validator obj and set the rules
+$('#formB').validate({
+    rules: {
+        name2: {
+            required: true
+        }
+    }
+}); */
+
+   // validate signup form on keyup and submit         
+   $('#for_modal').validate({
+        rules: {
+          //contrato y ficha quedan pendientes    
+          valor: {
+            required: true
+          },
+          email_mod: {
+            required: true,
+            email_mod: true
+          },
+          codcontract: {
+            required: true,
+            minlength: 5
+          },
+          name_client: {
+            required: true,
+            minlength: 5
+          },        
+          dir_client: {
+            required: true,
+            minlength: 5
+          },
+          tel_client: {
+            required: true,
+            minlength: 7
+          },
+          tab: {
+            required: true,
+            minlength: 5
+          },
+          Dependencia: {
+            required: true,
+            minlength: 5
+          },
+          valor_ficha: {
+            required: true,
+            minlength: 3
+          },
+          nit_cc_client: {
+            required: true,
+            minlength: 5
+          }          
+        },  
+        messages: {
+          valor: {
+            required: "Por favor ingrese un Valor para el Contrato"
+          },
+          name_client: {
+            required: "Por favor ingrese  nombre del cliente que toma el contrato",
+            minlength: "el nombre del cliente debe tener por lo menos 5 caracteres"
+          },
+          dir_client: {
+            required: "Por favor ingrese una dirección para el cliente del contrato",
+            minlength: "Por favor ingrese una dirección correcta para el cliente del contrato",
+          },
+          tel_client: {
+            required: "Por favor ingrese un teléfono fijo o celular para el cliente del contrato",
+            minlength: "Por favor ingrese un teléfono fijo o celular correcta para el cliente del contrato",
+          },
+          nit_cc_client: {
+            required: "Por favor ingrese el NIt o Cedula para el cliente del contrato",
+            minlength: "Por favor ingrese el NIt o Cedula correcta para el cliente del contrato",
+          },
+          tab: {
+            required: "Por favor ingrese un nombre o código para la primera ficha del contrato",
+            minlength: "Por favor ingrese un nombre o código para la primera ficha del contrato, con mas de 5 caracteres",
+          },
+          Dependencia: {
+            required: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato",
+            minlength: "Por favor ingrese el nombre de la Dependencia para la ficha del contrato, con mas de 5 caracteres",
+          },
+          valor_ficha: {
+            required: "Por favor ingrese el valor de la ficha asignada a la Dependencia",
+            minlength: "Por favor ingrese el valor de la ficha asignada a la  Dependencia , con mínimo de 3 cifras",
+          },
+          codcontract: {
+            required: "Ingrese un código para identificar el contrato de transporte",
+            minlength: "Ingrese un código de contrato Valido números y letras son permitidos"
+          },
+          email_mod: "Por Favor ingrese una dirección email valida"
+        }
+
+        });
+
+ // validate signup form on keyup and submit          
+ $('#for_user').validate({
+      rules: {
+        //contrato y ficha quedan pendientes    
+        role: {
+          required: true
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        password: {
+          required: true,
+          minlength: 5
+        },
+        password_again: {
+          equalTo: "#password"
+        },
+        codcontract: {
+          required: true,
+          minlength: 5
+        }
+      },
+
+      messages: {
+        role: {
+          required: "Por favor seleciones un Role para el Usuario"
+        },
+        password: {
+          required: "Por favor ingrese  password temporal para el usuario",
+          minlength: "el password debe tener por lo menos 5 números"
+        },
+        password_again: {
+          equalTo: "Por favor repita el password temporal para el usuario"
+        },
+        codcontract: {
+          required: "Ingrese un código para identificar el contrato de transporte",
+          minlength: "Ingrese un código de contrato Valido números y letras son permitidos"
+        },
+        email: "Por Favor ingrese una dirección email valida"
+      }
+    });
+
+});
 
   </script>
+
+  
+<script>
+     //var $table = $('#tablex');
+     var $table = $('#table_tabs');
+     var $remove = $('#remove');
+      
+    
+     var selections = []
+                  
+                    function getIdSelections() {
+                      return $.map($table.bootstrapTable('getSelections'), function (row) {
+                        return row.id
+                      })
+                    }
+                  
+                    function responseHandler(res) {
+                      $.each(res.rows, function (i, row) {
+                        row.state = $.inArray(row.id, selections) !== -1
+                      })
+                      return res
+                    }
+                  
+                    function detailFormatter(index, row) {
+                      var html = []
+                      $.each(row, function (key, value) {
+                        html.push('<p><b>' + key + ':</b> ' + value + '</p>')
+                      })
+                      return html.join('')
+                    }
+                  
+                    function operateFormatter(value, row, index) {
+                      return [
+                        '<a class="remove" href="javascript:void(0)" title="Remove">',
+                        '<i class="fa fa-trash"></i>',
+                        '</a>'
+                      ].join('')
+                    }
+                  
+                    window.operateEvents = {                  
+                      'click .remove': function (e, value, row, index) {              
+                        if(confirm("Esta seguro de que quiere eliminar este servicio.?")){
+                          $.ajax({
+                          url:"/coord/delete/"+row._id,
+                          method:"GET",     
+                          success:function(data){
+                            socket.emit('coord:oper', {
+                            message: "actualiza bandeja de entrada",
+                            accion: "coord elimina servicio"
+                          });
+                          socket.emit('oper:motor', {
+                            message: "actualiza bandeja de entrada",
+                            accion: "coord elimina servicio"
+                          });
+                          $table.bootstrapTable('refresh');
+                          }
+                          });
+                        }
+                        
+                      }
+                    }
+                  
+                    function totalTextFormatter(data) {
+                      return 'Total';
+                    }
+                  
+                    function totalNameFormatter(data) {
+                      return data.length;
+                    }
+                  
+                    function totalPriceFormatter(data) {
+                      var field = this.field;
+                      return '$' + data.map(function (row) {
+                        return +row[field].substring(1)
+                      }).reduce(function (sum, i) {
+                        return sum + i;
+                      }, 0)
+                    }
+                  
+                    function initTable() {
+                      $table.bootstrapTable('destroy').bootstrapTable({
+                        height: 250,
+                        locale: 'es-ES',//$('#locale').val(),
+                        columns: [
+                          [{
+                            field: 'state',
+                            checkbox: true,
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle'
+                          }, {
+                            title: 'Pasajero',
+                            field: 'pasajero',    
+                            rowspan: 2,
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                            //,
+                            //footerFormatter: totalTextFormatter
+                          }, {
+                            title: 'Detalles Servicio',
+                            colspan: 3,
+                            align: 'center'
+                          }],
+                          [{
+                            field: 'tab',
+                            title: 'tab',
+                            sortable: true,
+                            //footerFormatter: totalNameFormatter,
+                            align: 'center'
+                          }, {
+                            field: 'Dependencia',
+                            title: 'Dependencia',
+                            sortable: true,
+                            align: 'center',
+                            //footerFormatter: totalPriceFormatter
+                          }, {
+                            field: 'valor_ficha',
+                            title: 'Item valor_ficha',
+                            align: 'center',
+                            events: window.operateEvents,
+                            formatter: operateFormatter
+                          }, {
+                            field: 'contract',
+                            title: 'contract',
+                            sortable: true,
+                            align: 'center',
+                            //footerFormatter: totalPriceFormatter
+                          }]
+                        ]
+                      })
+                      $table.on('check.bs.table uncheck.bs.table ' +
+                        'check-all.bs.table uncheck-all.bs.table',
+                      function () {
+                        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+                  
+                        // save your data, here just save the current page
+                        selections = getIdSelections();
+                        // push or splice the selections if you want to save all data selections
+                      })
+                      $table.on('all.bs.table', function (e, name, args) {
+                        console.log(name, args);
+                      });
+                      $remove.click(function () {
+                        var ids = getIdSelections();
+                        $table.bootstrapTable('remove', {
+                          field: 'id',
+                          values: ids
+                        })
+                        $remove.prop('disabled', true);
+                      })
+                    }
+                  
+                    $(function() {
+                      initTable();
+            
+            
+                    });
+    
+    </script>
+    

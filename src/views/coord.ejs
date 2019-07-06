@@ -1,11 +1,10 @@
 <%- layout('layouts/main') %>
-
-<h1 class="mt-4 text-center">pagina principal coordinador</h1>
-
+<h1 class="mt-4 text-center">Coordinador <%= user.email %></h1>
+<!--
 <div class="container">
   <div class="row">
     <div class="col">
-      <div class="col-md-6 offset-md-6">
+      <div class="col-md-12 mt-4">
         <div class="card mt-4 text-center">
           <div class="car-header">
             <h3>ordenar</h3>
@@ -30,30 +29,32 @@
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="col-md-6 offset-md-6">
-        <div class="card mt-1 text-center">
-          <div class="car-header">
-            <h3>Chat</h3>
-          </div>
-          <div class="card-body">
-            <div id="chat-container">
-              <div id="chat-window">
-                <div id="output"></div>
-                <div id="actions"></div>
-              </div>
-              <!-- user and message -->
-              <input id="username" type="text" placeholder="username">
-              <input id="message" type="text" placeholder="message">
-              <button id="send">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+</div>-->
 
-</div>
+<div class="container-fluid">
+  <!--FORM-->
+   <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <form id="for_orden" name="for_orden" action="/add" method="post">            
+      <center><h3>Iniciar Orden de servicio.</h3></center>
+      
+      <% include partials/_form_pedi %>
+
+
+      
+      <button type="submit" class="btn btn-primary mt-4 btn-block">
+          programar Servicio
+        </button>
+
+      </form>
+      <button id="llenar" name="llenar" class="btn btn-primary mt-4 btn-block" align="center">datos ejemplo</button>
+      </div>
+      </div>
+      </div>
+      
+      </div>      
 <!--  
 <div class="col-md-12 mt-4">
   <table class="table table-bordered table-hover">
@@ -98,11 +99,11 @@
 </div>
 -->
 <!--ini-->
-<div class="col-md-12 mt-4">
+<div class="col-md-12 mt-8">
     <table
     id="tablex"
     data-toggle="tablex"
-    data-url="/data/coord/af1009342@gmail.com"
+    data-url="/data/coord/<%= user.email %>"
     data-toolbar="#toolbar"
     data-search="true"
     data-show-refresh="true"
@@ -140,25 +141,46 @@
 </div>
 
 <!--fin-->
-
-
+<!--fin
+<div class="col">
+  <div class="col-md-6 offset-md-6">
+    <div class="card mt-1 text-center">
+      <div class="car-header">
+        <h3>Chat</h3>
+      </div>
+      <div class="card-body">
+        <div id="chat-container">
+          <div id="chat-window">
+            <div id="output"></div>
+            <div id="actions"></div>
+          </div>
+        
+          <input id="username" type="text" placeholder="username">
+          <input id="message" type="text" placeholder="message">
+          <button id="send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+-->
 
 <!--socket.io -->
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
 
-var frm = $('#order');
 
+var frm = $('#for_orden');  
 frm.submit(function (e) {
-
-    e.preventDefault();
-//    alert('vas a enviar');
+    e.preventDefault();    
+    var data_save = $("#for_orden").serialize()+ '&coord=' + '<%= user.email %>';
+    //alert('vas a enviar'+data_save);
     $.ajax({
                 url: '/coord/add', // url where to submit the request
                 type : "POST", // type of action POST || GET
                 dataType : 'json', // data type
-                data : $("#order").serialize(), // post data || get data
+                data : data_save, // post data || get data
                 success : function(result) {
                     // you can see the result from the console
                     // tab of the developer tools
@@ -185,7 +207,8 @@ frm.submit(function (e) {
     console.log('actualiza_socket');
     
    */ 
-  }) 
+  });
+
 
 /*   function actauliza_socket() {
     
@@ -200,22 +223,22 @@ frm.submit(function (e) {
   let socket = io();
 
   // DOM elements
-  let message = document.getElementById('message');
+  //let message = document.getElementById('message');
   let username = document.getElementById('username');
-  let btn = document.getElementById('send');
+  //let btn = document.getElementById('send');
   let output = document.getElementById('output');
   let actions = document.getElementById('actions');
 
-  btn.addEventListener('click', function () {
+  /* btn.addEventListener('click', function () {
     socket.emit('chat:message', {
       message: message.value,
       username: username.value
     });
-  });
+  }); */
 
-  message.addEventListener('keypress', function () {
+/*   message.addEventListener('keypress', function () {
     socket.emit('chat:typing', username.value);
-  });
+  }); */
 
   socket.on('chat:message', function (data) {
     actions.innerHTML = '';
@@ -295,19 +318,19 @@ frm.submit(function (e) {
                 }
               
                 function totalTextFormatter(data) {
-                  return 'Total'
+                  return 'Total';
                 }
               
                 function totalNameFormatter(data) {
-                  return data.length
+                  return data.length;
                 }
               
                 function totalPriceFormatter(data) {
-                  var field = this.field
+                  var field = this.field;
                   return '$' + data.map(function (row) {
                     return +row[field].substring(1)
                   }).reduce(function (sum, i) {
-                    return sum + i
+                    return sum + i;
                   }, 0)
                 }
               
@@ -366,29 +389,303 @@ frm.submit(function (e) {
                   $table.on('check.bs.table uncheck.bs.table ' +
                     'check-all.bs.table uncheck-all.bs.table',
                   function () {
-                    $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+                    $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
               
                     // save your data, here just save the current page
-                    selections = getIdSelections()
+                    selections = getIdSelections();
                     // push or splice the selections if you want to save all data selections
                   })
                   $table.on('all.bs.table', function (e, name, args) {
-                    console.log(name, args)
-                  })
+                    console.log(name, args);
+                  });
                   $remove.click(function () {
-                    var ids = getIdSelections()
+                    var ids = getIdSelections();
                     $table.bootstrapTable('remove', {
                       field: 'id',
                       values: ids
                     })
-                    $remove.prop('disabled', true)
+                    $remove.prop('disabled', true);
                   })
                 }
               
                 $(function() {
-                  initTable()
+                  initTable();
         
         
-                })
+                });
+
+</script>
+
+<script>
+  $.validator.setDefaults({
+    submitHandler: function () {
+      confirm('Are you sure?');
+      if (confirm('Are you sure?')) {
+        form.submit();
+      }
+    }
+  });
+
+  $().ready(function () {
+    jQuery.validator.addMethod("phoneno", function (phone_number, element) {
+      phone_number = phone_number.replace(/\s+/g, "");
+      return this.optional(element) || phone_number.length > 9 &&
+        phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
+    }, "<br />Please specify a valid phone number");
+
+    // validate signup form on keyup and submit
+    $("#for_orden").validate({
+      rules: {
+        //contrato y ficha quedan pendientes
+        nit_cc: {
+          required: true,
+          minlength: 5
+        },
+        pasajero: {
+          required: true,
+          minlength: 4
+        },
+        tel_cel: {
+          required: true,
+          phoneno: true
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        tiempo_recogida: {
+          required: true
+        },
+        ida_dire: {
+          required: true
+        },
+        depar_ciu_ida: {
+          required: true
+        },
+        des_i_dire: {
+          required: true
+        },
+        depar_ciu_des_i: {
+          required: true
+        },
+        tiempo_partida: {
+          required: true
+        },
+        reg_dire: {
+          required: true
+        },
+        depar_ciu_reg_r: {
+          required: true
+        },
+        depar_ciu_reg: {
+          required: true
+        },
+        des_reg_dire: {
+          required: true
+        },
+      },
+
+      messages: {
+        pasajero: {
+          required: "Por favor ingrese nombre del pasajero",
+          minlength: "El nombre de pasajero debe tener por lo menos 4 letras"
+        },
+        nit_cc: {
+          required: "Por favor ingrese nit o cedula del pasajero",
+          minlength: "la cedula o nit de pasajero debe tener por lo menos 5 números"
+        },
+        tel_cel: {
+          required: "Ingrese un Numero Celular",
+          phoneno: "Ingrese un Numero Celular Valido solo números"
+        },
+        email: "Por Favor ingrese una dirección email valida",
+        tiempo_recogida: "Por Favor ingrese una hora y fecha de recogida Valida",
+        tiempo_partida: "Por Favor ingrese una hora y fecha de salida Valida",
+        ida_dire: "Por favor ingrese la dirección de recogida",
+        depar_ciu_ida: "Por favor selecciona Departamento-Municipio de recogida",
+        des_i_dire: "Por favor ingrese la dirección de destino",
+        depar_ciu_des_i: "Por favor selecciona Departamento-Municipio de Destino",
+        reg_dire: "Por favor ingrese la dirección de recogida o retorno",
+        depar_ciu_reg_r: "Por favor selecciona Departamento-Municipio de destino para retorno",
+        depar_ciu_reg: "Por favor selecciona Departamento-Municipio de recogida para retorno",
+        des_reg_dire: "Por favor ingrese la dirección de destino para la recogida o retorno",
+      }
+    });
+
+
+
+  });
+</script>
+
+<script>
+
+  $(document).ready(function () {
+
+ 
+    //inicializa los fechas    
+    $('#tiempo_partida').datetimepicker({
+      //defaultDate: moment(), //fecha por defecto	                
+      format: 'YYYY-MM-DD H:m:s',
+      minDate: moment()
+    });
+
+    $('#tiempo_recogida').datetimepicker({
+      //defaultDate: moment(), //fecha por defecto	            
+      format: 'YYYY-MM-DD H:m:s',
+      useCurrent: false //Important! See issue #1075
+    });
+    //tiempo_partida < tiempo_recogida
+    $("#tiempo_partida").on("dp.change", function (e) {
+      $('#tiempo_recogida').data("DateTimePicker").minDate(e.date);
+
+    });
+
+    $("#tiempo_recogida").on("dp.change", function (e) {
+      $('#tiempo_partida').data("DateTimePicker").maxDate(e.date);
+    });
+
+    //inicializo el formulario      
+    document.getElementById("solo_ida").checked = true;
+    document.getElementById("ida_regreso").checked = false;
+    document.getElementById("libre").checked = false;
+
+    on_off_content_div('regreso', true);
+    on_off_content_div('libre_btn', true);
+    //identifico la orden de servicio
+    codigounico();
+
+    //codigo formulario validacion fin
+
+    $(".w3-button").mouseover(function () {
+      var text = $(this).attr("data-message");
+      var phone = $(this).attr("data-number");
+      var message = encodeURIComponent(text);
+      if (isMobile.any()) {
+        //mobile device
+        var whatsapp_API_url = "whatsapp://send";
+        $(this).attr('href', whatsapp_API_url + '?phone=' + phone + '&text=' + message);
+      } else {
+        //desktop
+        var whatsapp_API_url = "https://web.whatsapp.com/send";
+        $(this).attr('href', whatsapp_API_url + '?phone=' + phone + '&text=' + message);
+      }
+    });
+  });
+
+  //inicio boton llenar
+  document.getElementById("llenar").onclick = function () {
+    // e.preventDefault();     
+
+    //$("#id_reg_mas").val("20190425113423");
+
+    $("#contrato").val("CT-0754-002");
+    $("#nit_cc").val("22222222222");
+    $("#pasajero").val("Hz Ingenieria");
+    $("#tel_cel").val("03233300333");
+    $("#email").val("nose@hotmail.com");
+
+    document.getElementById("solo_ida").checked = false;
+    document.getElementById("ida_regreso").checked = true;
+    document.getElementById("libre").checked = false;
+
+    on_off_content_div('regreso', false);
+    on_off_content_div('libre_btn', false);
+
+    $("#tiempo_recogida").val("2019-08-24 15:25:21");
+    $("#ida_dire").val("carrera 43 #26-33");
+    $("#ida_dire2").val("Oficina 501");
+    $("#depar_ciu_ida").val("VALLE DEL CAUCA-CALI");
+    $("#des_i_dire").val("carrera 43 #26-33");
+    $("#des_i_dire2").val("Oficina 501");
+    $("#depar_ciu_des_i").val("VALLE DEL CAUCA-CALI");
+
+    $("#fech_hor_reg").val("2019-4-26 11:00:34");
+    $("#reg_dire").val("carrera 43 #26-33");
+    $("#reg_dire2").val("Oficina 501");
+    $("#depar_ciu_reg").val("VALLE DEL CAUCA-CALI");
+    $("#des_reg_dire").val("carrera 43 #26-33");
+    $("#des_reg_dire2").val("Oficina 501");
+    $("#depar_ciu_reg_r").val("VALLE DEL CAUCA-CALI");
+
+
+    $("#title").val("titulo");
+    $("#description").val("description");
+    $("#resumen").val("resumen");
+    //document.getElementById("resumen2").value = "resumen de viaje";
+    codigounico();
+
+  }//fin boton llenar
+
+  $('input:radio[name=tipo_trayecto]').change(function () {
+    if (this.value == 'solo_ida') {
+      // alert("solo_ida");
+
+      $("#tipo_trayecto2").val("solo_ida");
+      on_off_content_div('regreso', true);
+      on_off_content_div('libre_btn', false);
+
+    } else if (this.value == 'ida_regreso') {
+      //alert("ida_regreso");
+      $("#tipo_trayecto2").val("ida_regreso");
+      $('#tiempo_recogida').data("DateTimePicker").minDate(moment());
+      on_off_content_div('regreso', false);
+      on_off_content_div('libre_btn', false);
+
+    } else if (this.value == 'libre') {
+      // alert("libre");
+      $("#tipo_trayecto2").val("libre");
+      on_off_content_div('regreso', true);
+      on_off_content_div('libre_btn', true);
+
+    }
+  });
+
+  $('#contrato').on('change', function () {
+    codigounico();
+  });
+
+  //funciones
+
+  function on_off_content_div(div, on_off) {
+    var el = document.getElementById(div),
+      all = el.getElementsByTagName('*'),
+      i;
+    for (i = 0; i < all.length; i++) {
+      //all[i].hidden = on_off;
+      all[i].disabled = on_off;
+    }
+  }
+
+
+  var isMobile = {
+    Android: function () {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
+
+  function codigounico() {
+    //ide unico
+    var d = new Date();
+    var cod = d.getFullYear() + "" + (d.getMonth() + 1) + "" + d.getDate() + "_" + d.getHours() + "" + d.getMinutes() + "" + d.getSeconds();
+    var contra = $('#contrato').val();
+    $('#id_reg_mas').val(contra + "_" + cod);
+  }
+
+
 
 </script>

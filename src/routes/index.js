@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const passport = require('passport');
 const Task = require('../models/task');
+const Client = require('../models/client');
+const Contract = require('../models/contract');
+const Ficha = require('../models/tab');
 
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -10,11 +13,7 @@ router.get('/', (req, res, next) => {
 //lo mas probables es que se por el tema del caracter * que va al final de cada dirección /signup* 
 // toca hacer un debugger
 
-//router.get('/signup', role_allow);
-
-router.get('/signup', role_allow);
-
-router.get('/signup', role_allow, (req, res, next) => {
+router.get('/signup',isAuthenticated ,role_allow , (req, res, next) => {
   res.render('signup');
 });
 
@@ -25,9 +24,8 @@ router.post('/signup', passport.authenticate('local-signup', {
 })); 
 
 
-/* router.post('/signup', (req, res, next) =>  {  
-  console.log(req.body); 
-});  */
+
+
 
 
 
@@ -78,7 +76,62 @@ router.post('/coord/add', async (req, res, next) => {
   res.status(200).json({success: true});   
 });
 
+//admin rutas
+router.post('/admin/client/add', async (req, res, next) => {  
+  const newClient = new Client(req.body);
+  const client = await newClient.save(); 
+  console.log(client);
+  res.status(200).json({client});   
+});
 
+router.post('/admin/contract/add', async (req, res, next) => {
+  console.log(req.body);
+  const newContract = new Contract(req.body);
+  const contract = await newContract.save(); 
+
+  const newClient = new Client(req.body);
+  newClient.contract = contract._id;
+  const client = await newClient.save();  
+
+  const newFicha = new Ficha(req.body);
+  newFicha.contract = contract._id;
+  const ficha = await newFicha.save();
+  
+  newContract.cliente = client;
+  newContract.ficha.push(ficha);
+  await newContract.save();
+
+  res.status(200).json({newContract});   
+});
+
+router.post('/admin/:contractId/ficha/add', async (req, res, next) => {
+  const { contractId } = req.params;
+  const newFicha = new Ficha(req.body);  
+  const ficha = await newFicha.save();
+  const contract = await Contract.findById(contractId);
+  contract.ficha.push(ficha);
+  await contract.save();
+  res.status(200).json({contract});   
+});
+
+router.put('/admin/:contractId/:fichaId/remove', async (req, res, next) => {
+  const { contractId } = req.params;
+  const { fichaId } = req.params;
+  const contract = await Contract.findByIdAndUpdate(contractId, { $pull: {
+    'ficha': fichaId }});
+  res.status(200).json({success: true});   
+});
+
+
+router.get('/data/contract/:contractId/', async (req, res, next) => {
+  const { contractId } = req.params;  
+  const {ficha} = await Contract.findById(contractId).populate('ficha').populate('cliente');
+  console.log(ficha);
+  res.status(200).json({ficha});   
+});
+
+
+//admin rutas fin
 
 router.get('/coord/delete/:id', async (req, res, next) => {
   let { id } = req.params;
@@ -109,7 +162,11 @@ router.get('/oper', async (req, res, next) => {
 
 router.put('/oper/edit/:taskId', role_allow , async (req, res, next) => {
   const { taskId } = req.params;
+  console.log("taskId: ");
+  console.log(taskId);
   const newTask  = req.body;
+  console.log("newTask:");
+  console.log(newTask);
   const wasAsigned = await Task.findById(taskId);
   if(wasAsigned.asignado){
     console.log("fue signado");
@@ -132,7 +189,13 @@ router.get('/oper/edit/:idTask', async (req, res, next) => {
   res.send("actulizado");
 });
 
-router.get('/motor/:user', role_allow);
+
+router.get('/motor', (req, res, next) => {
+  res.render('motor');  
+});
+
+/**
+router.get('/motor', role_allow);
 
 router.get('/motor/:user', (req, res, next) => {
   let { user } = req.params;
@@ -140,8 +203,27 @@ router.get('/motor/:user', (req, res, next) => {
     tasko: user
   });  
 });
+ */
 
+router.put('/motor/edit/:taskId',  async (req, res, next) => {
+  const { taskId } = req.params;
+  console.log("taskId: ");
+  console.log(taskId);
+  const newTask  = req.body;
+  console.log("newTask:");
+  console.log(newTask);
+  const wasAsigned = await Task.findById(taskId);
+  console.log("wasAsigned:");
+  console.log(wasAsigned);
 
+   if(wasAsigned.asignado){
+    console.log("fue signado");
+    res.status(500).send('Ya fue signado');
+  }else{
+    const oldUser = await Task.findByIdAndUpdate(taskId, newTask);
+    res.status(200).json({success: true});
+  }
+});
 
 router.get('/tabla', async (req, res, next) => {
   const tasks = await Task.find();
@@ -173,6 +255,7 @@ router.get('/chat', (req, res, next) => {
   res.render('chat');  
 });
 
+//
 
 function isAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
